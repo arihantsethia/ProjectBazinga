@@ -6,3 +6,7 @@ views = Blueprint('views',__name__)
 def index():
     return render_template("index.html")
 
+@views.route('/contest')
+def contest():
+    return render_template("contest.html")
+
