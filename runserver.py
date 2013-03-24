@@ -5,7 +5,7 @@ from views import views
 from contest_views import contest_views
 
 # configuration
-DATABASE = '/tmp/flaskr.db'
+DATABASE = 'flaskr.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -18,15 +18,13 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 app.register_blueprint(views)
 app.register_blueprint(contest_views)
 
-db = 0
-
 def init_db():
 	with app.app_context():
-		global db 
 		db = get_db()
 		with app.open_resource('schema.sql') as f:
 			db.cursor().executescript(f.read())
 		db.commit()
+		print db
 
 def get_db():
     top = _app_ctx_stack.top
@@ -37,6 +35,7 @@ def get_db():
     return top.sqlite_db
 
 if __name__ == '__main__':
-	init_db()
+	#init_db()
 	app.run(debug=True)
+	
 
