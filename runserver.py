@@ -1,23 +1,28 @@
+# Main File : This has to be run to start the server
+
 from __future__ import with_statement
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, _app_ctx_stack
 from views import views
 from contest_views import contest_views
 
-# configuration
+# Database Configuration
 DATABASE = 'flaskr.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
 
-# create our little application :)
+# Defining the application by creating an instance of Flask
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+
+# Blueprints : Setting the blueprints for handling various routes 
 app.register_blueprint(views)
 app.register_blueprint(contest_views)
 
+#Initaialzes the database from the database schema give in 'schema.sql'
 def init_db():
 	with app.app_context():
 		db = get_db()
@@ -26,6 +31,7 @@ def init_db():
 		db.commit()
 		print db
 
+#Establishes the connection with the database
 def get_db():
     top = _app_ctx_stack.top
     if not hasattr(top, 'sqlite_db'):
