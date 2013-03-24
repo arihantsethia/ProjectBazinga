@@ -1,0 +1,3 @@
+contest table query
+
+CREATE  TABLE  IF NOT EXISTS "main"."contest" ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "description" TEXT NOT NULL )
