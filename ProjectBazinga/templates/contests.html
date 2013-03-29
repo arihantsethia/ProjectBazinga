@@ -1,0 +1,9 @@
+<html>
+	<head>
+	</head>
+	<body>
+		{% for contest in contests %}
+		<li> <a href="contests/{{ contest.contest_id }}" >{{ contest.name }}</li>
+		{% endfor %}
+	</body>
+</html>
