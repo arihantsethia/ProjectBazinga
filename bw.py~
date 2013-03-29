@@ -31,11 +31,6 @@
 #error will contain errors if any
 #language: 'c', 'py', 'cpp'.
 #memlimit in bytes
-#
-#example
-#(out, err) = compilerun(1, "#include<stdio.h>\nint main(){printf(\"hello\");return 0;}", "testcase", "c", 20000000, 20000)
-#print out
-#print err
 
 import subprocess
 import logging
