@@ -1,15 +1,23 @@
 CREATE TABLE IF NOT EXISTS contest ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "description" TEXT NOT NULL , "owner" INTEGER NOT NULL);
 ;
-CREATE TABLE IF NOT EXISTS submissions (
+CREATE TABLE IF NOT EXISTS submission_testcase (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "testcase_id" INTEGER NOT NULL,
     "submission_id" INTEGER NOT NULL,
-    "result_id" INTEGER NOT NULL,
+    "result_type" INTEGER NOT NULL,
     "result" TEXT NOT NULL,
-    "submission_time" DATETIME NOT NULL,
     "run_time" TIME NOT NULL,
     "run_space" INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS submissions (
+    "submission_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "submission_time" DATETIME NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "code" TEXT NOT NULL,
+    "total_score" INTEGER NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS question_testcase (
     "testcase_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "question_id" INTEGER NOT NULL,
