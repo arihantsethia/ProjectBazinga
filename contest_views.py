@@ -36,7 +36,7 @@ def show_contest(contest_id=0):
 	qs = cur.fetchall()
 	return render_template("contest_questions.html", questions=qs)
 
-@contest_views.route('/contests/question/<int:id>', methods=['GET','POST'])
+@contest_views.route('/questions/<int:id>', methods=['GET','POST'])
 def show_question(id=0):
 	db = get_db()
 
