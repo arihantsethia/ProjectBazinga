@@ -37,10 +37,12 @@ def login():			#form validation using this function in signup.html
 			flash('Invalid username or password')
 			session['logged_in'] = False
 			session['username'] = ''
+			session['userId'] = None
 		else:
 			error = 0
 			session['logged_in'] = True
 			session['username'] = username
+			session['userId'] = userid
 			message = "Logged in succesfully"			
 		return render_template('index.html', error=error , message=message )
 

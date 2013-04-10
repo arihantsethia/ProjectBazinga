@@ -1,0 +1,15 @@
+{% extends "header.html" %}
+{% block body %} 
+<div style="margin:100px">
+</div><h2>Stalking mode</h2>
+{% for i in following %}
+	<li>User id = {{i.following}}
+	<br>
+	{% for j in info %}
+		{% if j.user_id == i.following %}
+			<li>{{j.user_id}}	{{j.q_id}}	{{j.status}}
+		{% endif %}
+	{% endfor %}
+	<br><br><br>
+{% endfor %}
+{% endblock %}

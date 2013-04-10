@@ -90,8 +90,9 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#"><i class="icon-user"> </i> &nbsp;Profile</a></li>
-                    <li><a href="#"><i class="icon-star"> </i> &nbsp;Friends</a></li>
+                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-user"> </i> &nbsp;Profile</a></li>
+                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;Friends</a></li>
+                    <li><a href="profile/follow"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
                     <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
                     <li><a href="/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>

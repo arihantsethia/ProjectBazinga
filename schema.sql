@@ -1,4 +1,4 @@
-CREATE TABLE users ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT null,"username" TEXT NOT null, "pass" TEXT NOT null,"email" TEXT, "name" TEXT, "pic" BLOB );
+CREATE TABLE users ("user_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT null,"username" TEXT NOT null, "pass" TEXT NOT null,"email" TEXT, "name" TEXT, "pic" BLOB );
 CREATE TABLE contest ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "description" TEXT NOT NULL , "owner" INTEGER NOT NULL);
 CREATE TABLE contest_questions (
     "question_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -10,7 +10,10 @@ CREATE TABLE contest_questions (
 CREATE TABLE question_testcase (testcase_id INTEGER PRIMARY KEY, question_id INTEGER, test TEXT, answer TEXT, points INTEGER, time_limit REAL, space_limit INTEGER);
 CREATE TABLE submission_testcase (id INTEGER PRIMARY KEY, testcase_id INTEGER, submission_id INTEGER, result_type INTEGER, result TEXT, run_time REAL, run_space INTEGER);
 CREATE TABLE submissions (points INTEGER, lang TEXT, code TEXT, id INTEGER PRIMARY KEY, user_id INTEGER, submission_time DATETIME);
+CREATE TABLE "follow" ("follower" INTEGER, "following" INTEGER);
+CREATE TABLE "history" ("user_id" INTEGER, "q_id" INTEGER, "status" TEXT DEFAULT Accepted);
 CREATE TABLE sqlite_sequence(name,seq);
+INSERT INTO users VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','Hone your skills');
 INSERT INTO contest VALUES(0,'1990-1-1 00:00:00','2099-1-1 00:00:00','Practice','Bazinga','Hone your skills',0);
 INSERT INTO contest VALUES(1,'1995-1-1 00:00:00','2014-1-1 00:00:00','InterIIT','Bazinga','Inter IIT coding challenge',0);
 INSERT INTO contest VALUES(2,'1995-1-1 00:00:00','2011-1-1 00:00:00','CodeSprint','Bazinga','Death Race',0);
