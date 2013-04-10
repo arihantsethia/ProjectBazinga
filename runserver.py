@@ -5,9 +5,10 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, _app_ctx_stack
 from views import views
 from contest_views import contest_views
+from login_views import login_views
 
 # Database Configuration
-DATABASE = 'flaskr.db'
+DATABASE = 'database.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -21,6 +22,7 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 # Blueprints : Setting the blueprints for handling various routes 
 app.register_blueprint(views)
 app.register_blueprint(contest_views)
+app.register_blueprint(login_views)
 
 #Initaialzes the database from the database schema give in 'schema.sql'
 def init_db():

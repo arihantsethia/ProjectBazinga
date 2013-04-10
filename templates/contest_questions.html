@@ -1,5 +1,43 @@
-<ul>
-	{% for question in questions %}
-		<li> <a href="question/{{ question.question_id }}" >{{ question.question_name }}</li>
-	{% endfor %}
-</ul>
+{% extends "header.html" %}
+{% block body %} 
+<div style="margin:100px">
+</div>
+<div class="container">
+	<div class="page-header">
+		<h2>{{ questions[0].contest_id }}</h2>
+	</div>
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+		    <li class="active"><a href="#pane1" data-toggle="tab">Information</a></li>
+		    <li><a href="#pane2" data-toggle="tab">Problems</a></li>
+		  </ul>
+		<div class="tab-content">
+		    <div id="pane1" class="tab-pane active">
+		      <h4>The Markup</h4>
+		      <pre>Code here ...</pre>
+		    </div>
+	    <div id="pane2" class="tab-pane">
+	    	<table class="table table-striped">
+	    	    <thead>
+	    	        <tr>
+	    	            <th>Question</th>
+	    	            <th>Points</th>
+	    	            <th>Difficulty</th>
+	    	            <th>Solved</th>
+	    	        </tr>
+	    	    </thead>
+	    	    {% for question in questions %}
+	    	    	<tbody>
+		    	        <tr>
+		    	            <td><a href="{{ url_for('.show_question', id=question.question_id) }}" >{{ question.question_name }}</td>
+		    	            <td>{{ question.question_name }} </td>
+		    	            <td>{{ question.question_name }}</td>
+		    	            <td>{{ question.question_name }}</td>
+		    	        </tr>
+	    	    	</tbody>
+	    	    {% endfor %}
+	    	</table>
+	    </div>
+	  </div><!-- /.tab-content -->
+	</div><!-- /.tabbable --> 
+{% endblock %}

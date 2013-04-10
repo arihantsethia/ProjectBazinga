@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+{% block body %}  
+<div style="margin:100px">
+</div>
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<div class="container marketing">
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    {% for contest in contests %}
+    <div class="span4">
+      <img class="img-circle" data-src="holder.js/140x140">
+      <h2><a href="code/contest/{{ contest.contest_id }}" >{{ contest.name }}</a></h2>
+      <p>{{ contest.description }}</p>
+      <p><a class="btn" href="code/contest/{{ contest.contest_id }}">View details &raquo;</a></p>
+    </div><!-- /.span4 -->
+    {% endfor %}
+  </div><!-- /.row -->
+
+{% endblock %}
+

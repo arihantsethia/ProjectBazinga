@@ -7,9 +7,11 @@ views = Blueprint('views',__name__)
 
 @views.route('/')
 def index():
-    return render_template("index.html")
+	return render_template("index.html")
 
-@views.route('/contest')
-def contest():
-    return render_template("contest.html")
+@views.route('/home')
+def home():
+	return render_template("index.html")
+
+
 
