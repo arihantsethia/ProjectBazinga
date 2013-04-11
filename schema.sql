@@ -1,5 +1,5 @@
-CREATE TABLE users ("user_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT null,"username" TEXT NOT null, "pass" TEXT NOT null,"email" TEXT, "name" TEXT, "pic" BLOB );
 CREATE TABLE contest ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "description" TEXT NOT NULL , "owner" INTEGER NOT NULL);
+;
 CREATE TABLE contest_questions (
     "question_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "contest_id" INTEGER NOT NULL,
@@ -12,8 +12,20 @@ CREATE TABLE submission_testcase (id INTEGER PRIMARY KEY, testcase_id INTEGER, s
 CREATE TABLE submissions (points INTEGER, lang TEXT, code TEXT, id INTEGER PRIMARY KEY, user_id INTEGER, submission_time DATETIME);
 CREATE TABLE "follow" ("follower" INTEGER, "following" INTEGER);
 CREATE TABLE "history" ("user_id" INTEGER, "q_id" INTEGER, "status" TEXT DEFAULT Accepted);
-CREATE TABLE sqlite_sequence(name,seq);
-INSERT INTO users VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','Hone your skills');
+CREATE TABLE "users" (
+    "user_id" INTEGER PRIMARY KEY NOT NULL,
+    "username" TEXT UNIQUE NOT NULL,
+    "password" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "contact" TEXT,
+    "profession" TEXT,
+    "organization" TEXT,
+    "website" TEXT,    
+    "picture" BLOB,
+    "resume" BLOB
+);
+INSERT INTO users VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','8011244745','Student','IIT G','github.com','picture.img','resume.pdf');
 INSERT INTO contest VALUES(0,'1990-1-1 00:00:00','2099-1-1 00:00:00','Practice','Bazinga','Hone your skills',0);
 INSERT INTO contest VALUES(1,'1995-1-1 00:00:00','2014-1-1 00:00:00','InterIIT','Bazinga','Inter IIT coding challenge',0);
 INSERT INTO contest VALUES(2,'1995-1-1 00:00:00','2011-1-1 00:00:00','CodeSprint','Bazinga','Death Race',0);
@@ -35,3 +47,4 @@ int main(){
 printf("hello");
 return 0;
 }',1,0,'2013-03-29 16:35:09');
+

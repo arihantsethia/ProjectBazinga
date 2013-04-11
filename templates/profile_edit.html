@@ -1,5 +1,5 @@
 {% extends "header.html" %}
-{% block body %} 
+{% block body %}
 <div style="margin:100px">
 </div>
 <div class="container marketing">
@@ -17,13 +17,13 @@
       </div>
 
       <div class="control-group">
-        <!-- Username -->
+        <!-- Fullname -->
         <label class="control-label"  for="name">Full Name</label>
         <div class="controls">
           <input type="text" id="name" name="name"  value="{{ user.name }}" class="input-xlarge">
         </div>
       </div>
-   
+
       <div class="control-group">
         <!-- E-mail -->
         <label class="control-label" for="email">E-mail</label>
@@ -31,6 +31,56 @@
           <input type="text" id="email" name="email"  value="{{ user.email }}" class="input-xlarge">
         </div>
       </div> 
+
+
+      <div class="control-group">
+        <!-- Contact -->
+        <label class="control-label" for="contact">Contact</label>
+        <div class="controls">
+          <input type="text" id="contact" name="contact"  value="{{ user.contact }}" class="input-xlarge">
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <!-- Website -->
+        <label class="control-label" for="website">Website</label>
+        <div class="controls">
+          <input type="text" id="webiste" name="website"  value="{{ user.website }}" class="input-xlarge">
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <!-- Profession -->
+        <label class="control-label" for="website">Profession</label>
+        <div class="controls">
+          <input type="text" id="profession" name="profession"  value="{{ user.profession }}" class="input-xlarge">
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <!-- Organization -->
+        <label class="control-label" for="organization">Organization</label>
+        <div class="controls">
+          <input type="text" id="organization" name="organization"  value="{{ user.organization }}" class="input-xlarge">
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <!-- Resume -->
+        <label class="control-label" for="resume">Resume</label>
+        <div class="controls">
+          <input type="text" id="resume" name="resume"  value="{{ user.resume}}" class="input-xlarge">
+        </div>
+      </div> 
+
+      <div class="control-group">
+        <!-- Profile Picture -->
+        <label class="control-label" for="picture">Picture</label>
+        <div class="controls">
+          <input type="text" id="picture" name="picture"  value="{{ user.picture}}" class="input-xlarge">
+        </div>
+      </div> 
+
       <div class="control-group">
         <!-- Button -->
         <div class="controls">
