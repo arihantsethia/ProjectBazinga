@@ -1,24 +1,100 @@
 {% extends "header.html" %}
 {% block body %} 
-<div style="margin:100px">
+<div style="padding:50px">
 </div>
-<div class = "container" >
-	<div class="page-header">
-		<h2>{{ user.username }} | {{ user.name }}</h2>
-	</div>
-	{% if flag==1 %}
-	<a href="/profile/edit">edit</a>
-	<a href="/profile/follow">stalking mode</a>
-	{% endif %}
-	{% if flag==0 %}
-	<h2><a href="/follow_unfollow/{{user.user_id}}/0">unfollow</a></h2>
-	{% endif %}
-	{% if flag==2 %}
-	<h2><a href="/follow_unfollow/{{user.user_id}}/1">follow</a></h2>
-	{% endif %}
-	<h2>{{ user.name }}</h2>
-	<h2>{{user.age}}</h2>
-	<h2>{{path}}</h2>
+<div class = "container" >	
+	<div class="page-header row-fluid ">	
+		<div class="pull-left" >	
+			<h2 style="align:bottom"><img class="img-polaroid " src="../static/images/arihant.png" />
+			&nbsp;{{ user.username }} | {{ user.name }}</h2>
+		</div>
+		<div class="pull-right">
+				{% if flag==1 %}
+				<a href="/profile/edit"><button class="btn btn-inverse">Edit Profile</button></a>
+				<a href="/profile/edit"><button class="btn btn-inverse">My Followers</button></a> 
+				<a href="/profile/edit"><button class="btn btn-inverse">Recent Activities</button></a>
+				{% endif %}
+				{% if flag==0 %}
+				<a href="/follow_unfollow/{{user.user_id}}/0"><button class="btn btn-primary">Unfollow</button></a>
+				{% endif %}
+				{% if flag==2 %}
+				<a href="/follow_unfollow/{{user.user_id}}/0"><button class="btn btn-primary">Follow</button></a>
+				{% endif %}
+		</div>
+	</div>	
+	<div class="form-horizontal" >
+	  <div class="control-group">
+	    <!-- Username -->
+	    <label class="control-label"  for="username">Username</label>
+	    <div class="controls">
+	      <input type="text" id="username" name="username"  value="{{ user.username }}" class="input-xlarge ">
+	    </div>
+	  </div>
 
+	  <div class="control-group">
+	    <!-- Fullname -->
+	    <label class="control-label"  for="name">Full Name</label>
+	    <div class="controls">
+	      <input type="text" id="name" name="name"  value="{{ user.name }}" class="input-xlarge">
+	    </div>
+	  </div>
+
+	  <div class="control-group">
+	    <!-- E-mail -->
+	    <label class="control-label" for="email">E-mail</label>
+	    <div class="controls">
+	      <input type="text" id="email" name="email"  value="{{ user.email }}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+
+	  <div class="control-group">
+	    <!-- Contact -->
+	    <label class="control-label" for="contact">Contact</label>
+	    <div class="controls">
+	      <input type="text" id="contact" name="contact"  value="{{ user.contact }}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+	  <div class="control-group">
+	    <!-- Website -->
+	    <label class="control-label" for="website">Website</label>
+	    <div class="controls">
+	      <input type="text" id="webiste" name="website"  value="{{ user.website }}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+	  <div class="control-group">
+	    <!-- Profession -->
+	    <label class="control-label" for="website">Profession</label>
+	    <div class="controls">
+	      <input type="text" id="profession" name="profession"  value="{{ user.profession }}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+	  <div class="control-group">
+	    <!-- Organization -->
+	    <label class="control-label" for="organization">Organization</label>
+	    <div class="controls">
+	      <input type="text" id="organization" name="organization"  value="{{ user.organization }}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+	  <div class="control-group">
+	    <!-- Resume -->
+	    <label class="control-label" for="resume">Resume</label>
+	    <div class="controls">
+	      <input type="text" id="resume" name="resume"  value="{{ user.resume}}" class="input-xlarge">
+	    </div>
+	  </div> 
+
+	  <div class="control-group">
+	    <!-- Profile Picture -->
+	    <label class="control-label" for="picture">Picture</label>
+	    <div class="controls">
+	      <input type="text" id="picture" name="picture"  value="{{ user.picture}}" class="input-xlarge">
+	    </div>
+	  </div> 
+	</div>
 </div>
 {% endblock %}
