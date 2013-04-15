@@ -41,6 +41,9 @@
   				{% endif %}
   			</div>
   		{% set count = count + 1 %}
+
+  		{% else %}
+  		<div class="alert alert-error">You have no submissions</div>
   		{% endfor %}
   		</div>
   		</div>

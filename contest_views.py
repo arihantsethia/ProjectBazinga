@@ -30,7 +30,8 @@ def index():
 
 @contest_views.route('/code/submissions/<int:index>')
 def submissions(index=0):
-	user_id = 0
+
+	user_id = session['userId']
 	db = get_db()
 	cur = db.execute('SELECT * FROM submissions WHERE user_id = ? ORDER BY id DESC LIMIT ?, ?', [user_id, index, index+10])
 	subs = cur.fetchall()
@@ -63,14 +64,14 @@ def show_contest(contest_id=0):
 def show_question(id=0):
 	db = get_db()
 
-	if(request.method =='POST') :
+	if(request.method =='POST' and session.logged_in) :
 		#f_name = 'asdf'+curtime+'.txt'
 		#fo = open('uploads/'+f_name, "wb")
 		#fo.write( "Python is a great language.\nYeah its great!!\n");
 		code = request.form['code']
 		lang = request.form['lang']
 		print 'code:\n%s\nlang:\n%s' % (code, lang)
-		userid = 0;
+		userid = session.userId;
 
 		db.execute('insert into submissions (user_id, submission_time, code, lang, points) VALUES (?,?,?,?,?)', [userid, curtime, code, lang, 0])
 		cur = db.execute('SELECT last_insert_rowid() AS id FROM submissions');
