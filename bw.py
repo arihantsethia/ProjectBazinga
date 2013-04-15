@@ -174,7 +174,8 @@ def compilerun(sid, code, testCase, language, memlimit, timelimit):
     else:
       logging.debug("Error when compiling %s", filename)
       compileerror = True
-      raise CompilationError(error)
+      return ("", "Compile Error")
+      #raise CompilationError(error)
   elif language in interpreter:
     run = ['./runner', interpreter[language], filename, '--input=' + inputfile, 
            '--output=' + outputfile, '--mem=' + memlimit, 

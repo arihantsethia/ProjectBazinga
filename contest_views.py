@@ -53,7 +53,7 @@ def show_question(id=0):
 		#fo.write( "Python is a great language.\nYeah its great!!\n");
 		code = request.form['code']
 		lang = request.form['lang']
-
+		print 'code:\n%s\nlang:\n%s' % (code, lang)
 		userid = 0;
 
 		db.execute('insert into submissions (user_id, submission_time, code, lang, points) VALUES (?,?,?,?,?)', [userid, curtime, code, lang, 0])
