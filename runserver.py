@@ -8,6 +8,7 @@ from contest_views import contest_views
 from login_views import login_views
 from profile_views import profile_views
 from discuss_views import discuss_views
+from admin_views import admin_views
 
 # Database Configuration
 DATABASE = 'database.db'
@@ -27,6 +28,7 @@ app.register_blueprint(contest_views)
 app.register_blueprint(login_views)
 app.register_blueprint(profile_views)
 app.register_blueprint(discuss_views)
+app.register_blueprint(admin_views)
 
 #Initaialzes the database from the database schema give in 'schema.sql'
 def init_db():

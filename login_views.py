@@ -57,8 +57,7 @@ def register():                    #renders the signup.html
 
 @login_views.route('/logout')
 def logout():
-	session['logged_in'] = False
-	session['username'] = ''
+	session.clear()
 	message = "Logged out succesfully"
 	return render_template('index.html' , message=message)
 

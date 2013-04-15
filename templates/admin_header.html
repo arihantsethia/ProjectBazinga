@@ -28,6 +28,7 @@
 
   <body>
 
+    {% if session.admin_logged_in %}
     <!-- NAVBAR
     ================================================== -->
     <div class="navbar-wrapper">
@@ -47,42 +48,18 @@
             <div class="nav-collapse collapse">
               <ul class="nav">
                 <li class="active"> <a href="/home"><i class="icon-home icon-white"></i>&nbsp; Home</a></li>
-                <li><a href="/code"><i class="icon-pencil icon-white"></i>&nbsp; Code</a></li>  
-                <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Discuss</a></li>
+                <li><a href="/code"><i class="icon-pencil icon-white"></i>&nbsp; Organize Contest</a></li>  
+                <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Contest</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Submissions</a></li>
+                <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Questions</a></li>
               </ul>
               <!-- Login  -->
               <ul class="nav pull-right">
-                {% if not session.logged_in  %}
                 <li class="dropdown">
-                  <a class="dropdown-toggle" href="" data-toggle="dropdown"><span {% if error %} class="text-error " {% endif %} > Sign In <strong class="caret"></strong> </span ></a>
-                  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                    <form method="post" action="/login" accept-charset="UTF-8">
-                      {% if error %}
-                        <div class="alert alert-error">
-                          <a class="close" data-dismiss="alert" href="#">×</a>Invalid Username or Password!
-                        </div>
-                      {% endif %}
-                      <input style="margin-bottom: 15px;" type="text" placeholder="Username" id="username" name="username">
-                      <input style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password">
-                      <input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">
-                      <label class="string optional" for="user_remember_me"> Remember me</label>
-                      <input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
-                      <li class="divider"></li>
-                      <div >
-                        <a href = "/register" >Register </a> | <a href = "/forgot">Forgot Password </a> 
-                      </div>
-                    </form>
-                  </div>
-                </li>
-                {% else %}
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.username }} <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.admin_username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-user"> </i> &nbsp;Profile</a></li>
-                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;Friends</a></li>
-                    <li><a href="{{ url_for('profile_views.follow') }}"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
+                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;LeaderBoard</a></li>
                     <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
                     <li><a href="/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>
@@ -90,7 +67,6 @@
                   </ul>
                   </ul>
                 </li>
-                {% endif %}
               </ul>
               <!-- / Login  -->
             </div><!--/.nav-collapse -->
@@ -108,9 +84,11 @@
         </div><!-- /.navbar -->
       </div> <!-- /.container -->
     </div><!-- /.navbar-wrapper -->
+         {% endif %}
       {% block body %}
       {% endblock %}
      <!-- FOOTER -->
+
      <div id="footer">
      <div class="container ">
       <footer>
