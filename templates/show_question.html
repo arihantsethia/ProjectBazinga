@@ -19,10 +19,13 @@
 		<li><a id="cpp" lname="c_cpp" href="#">C++</a></li>
 		<li><a id="c" lname="c_cpp" href="#">C</a></li>
 	</ul>
+
+	<div id="editor"></div>
 	<form id="codeform" method='POST' action=''>
-		<div id="editor"></div>
+		
 		<input name="lang" id="lang" type="hidden"/>
 		<input name="code" id="code" type="hidden"/>
+		<hr class="separator" />
 		<input class="btn " type="submit" id="submit" value="Submit">
 	</form>
 
@@ -33,17 +36,21 @@
 <script type="text/javascript">
 var editor = ace.edit("editor");
     editor.setTheme("ace/theme/textmate");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setMode("ace/mode/python");
 
     $(document).ready( function(){
     	$('#langTab a').click(function (e) {
  			e.preventDefault();
- 			$("lang").text($(this).attr("id"));
+ 			$("#lang").val(this.id);
+ 			console.log($("#lang").val())
 			editor.getSession().setMode("ace/mode/" + $(this).attr("lname")); 			
  			$(this).tab('show');
 		});
 		$("#codeform").submit(function(){
-			$("#code").text(editor.getValue())
+			$("#code").val(editor.getValue());
+			//alert($("#code").text())
+			console.log($("#code").text());
+			return true;
 		});
     });
 
