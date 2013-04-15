@@ -1,5 +1,6 @@
 {% extends "header.html" %}
 {% block body %} 
+
 <div style="margin:100px">
 </div>
 <div class="container">
@@ -11,10 +12,41 @@
 	<hr> <h4>Submit Code</h4>
 	<hr>
 
-	<form method='POST' action=''>
-		<pre id="editor" class="container"></pre>
+	<ul id="langTab" class="nav nav-pills">
+		<li class="active">
+			<a id="py" lname="python" href="#">Python</a>
+		</li>
+		<li><a id="cpp" lname="c_cpp" href="#">C++</a></li>
+		<li><a id="c" lname="c_cpp" href="#">C</a></li>
+	</ul>
+	<form id="codeform" method='POST' action=''>
+		<div id="editor"></div>
+		<input name="lang" id="lang" type="hidden"/>
+		<input name="code" id="code" type="hidden"/>
 		<input class="btn " type="submit" id="submit" value="Submit">
 	</form>
 
-</div><!-- /.tabbable --> 
+</div><!-- /.tabbable -->
+
+<script src="{{ url_for('static', filename='js/src/ace.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script type="text/javascript">
+var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/textmate");
+    editor.getSession().setMode("ace/mode/javascript");
+
+    $(document).ready( function(){
+    	$('#langTab a').click(function (e) {
+ 			e.preventDefault();
+ 			$("lang").text($(this).attr("id"));
+			editor.getSession().setMode("ace/mode/" + $(this).attr("lname")); 			
+ 			$(this).tab('show');
+		});
+		$("#codeform").submit(function(){
+			$("#code").text(editor.getValue())
+		});
+    });
+
+</script>
+
 {% endblock %}
