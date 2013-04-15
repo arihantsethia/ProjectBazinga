@@ -1,0 +1,27 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h2>WElcome to disscussion module </h2>
+     
+     {% if session.logged_in %}
+     <form action="{{ url_for('.add_question') }}" method='POST' class=add-comment>
+      Question?: <input type='text' name='comment' />
+      <input type='submit' value="ask question"> 
+    </form>
+    {% endif %}
+
+    
+     <ul class=entries > 
+        {% for text in entries %}
+          <li> 
+              user: {{ text.user_id }} -- {{ text.question }} 
+              <form action="{{ url_for('.show_answers') }}" method='POST' >
+                <input type='text' name='q_id' value={{ text.question_id }} style = 'display:none' /> 
+                <input type='submit' value="answers"> 
+              </form>
+          </li>
+        {% endfor %}
+     </ul>   
+  </body>
+</html>

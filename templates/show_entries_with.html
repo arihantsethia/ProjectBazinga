@@ -1,0 +1,65 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h2>WElcome to disscussion module </h2>
+
+     {% if session.logged_in %}
+     <form action="{{ url_for('.add_question') }}" method='POST' class=add-comment>
+      Question?: <input type='text' name='comment' />
+      <input type='submit' value="ask question"> 
+    </form>
+    {% endif %}
+
+
+    <ul class=preques > 
+        {% for text in preques %}
+          <li> 
+              user: {{ text.user_id }} -- {{ text.question }} 
+              <form action="{{ url_for('.show_answers') }}" method='POST' >
+                <input type='text' name='q_id' value={{ text.question_id }} style = 'display:none' /> 
+                <input type='submit' value="show answers"> 
+              </form>
+          </li>
+        {% endfor %}
+     </ul>
+
+    <ul>
+      <li>
+        <h4> user: {{ ques.user_id }} -- {{ ques.question }} </h4>        
+        <form action="{{ url_for('.show_questions') }}" ><input type="submit" value="up"></form>
+
+        {% if session.logged_in %}
+        <form action="{{ url_for('.add_answer') }}" method='POST' >
+          write answer: <input type='text' name='answer' />
+          <input type='text' name='q_id' value={{ ques.question_id }} style = 'display:none' /> 
+          <input type='submit' value="Answer"> 
+        </form>
+        {% endif %}
+
+        <ul class=entries > 
+            {% for text2 in entries %}
+              <li> 
+                  user: {{ text2.user_id }} - {{ text2.answer }}
+              </li>
+            {% endfor %}
+         </ul>  
+      </li>  
+    </ul>
+
+    <ul class=postques > 
+        {% for text3 in postques %}
+          <li> 
+              user:{{ text3.user_id }} -- {{ text3.question }}
+              <form action="{{ url_for('.show_answers') }}" method='POST' >
+                <input type='text' name='q_id' value={{ text3.question_id }} style = 'display:none' /> 
+                <input type='submit' value="show answers"> 
+              </form>
+          </li>
+        {% endfor %}
+     </ul>
+     
+
+        
+  </body>
+</html>
