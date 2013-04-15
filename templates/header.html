@@ -140,7 +140,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/src/ace.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/src/ace.js') }}"></script> -->
     <script>
       !function ($) {
         $(function(){
@@ -158,10 +158,6 @@
       }(window.jQuery)
     </script>
 
-    <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/textmate");
-    editor.getSession().setMode("ace/mode/javascript");
-    </script>
+
   </body>
 </html>
