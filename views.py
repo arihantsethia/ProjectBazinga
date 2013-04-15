@@ -13,5 +13,8 @@ def index():
 def home():
 	return render_template("index.html")
 
+@views.route('/contact')
+def home():
+	return render_template("contact.html")
 
 

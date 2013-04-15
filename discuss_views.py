@@ -11,7 +11,7 @@ discuss_views = Blueprint('discuss_views',__name__)
 def get_db():
     top = _app_ctx_stack.top
     if not hasattr(top, 'sqlite_db'):
-        sqlite_db = sqlite3.connect('comments.db')
+        sqlite_db = sqlite3.connect('database.db')
         sqlite_db.row_factory = sqlite3.Row
         top.sqlite_db = sqlite_db
     return top.sqlite_db 
