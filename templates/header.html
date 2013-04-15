@@ -10,6 +10,7 @@
     <!-- Le styles -->
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/editor.css') }}" rel="stylesheet">
     
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -92,7 +93,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-user"> </i> &nbsp;Profile</a></li>
                     <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;Friends</a></li>
-                    <li><a href="profile/follow"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
+                    <li><a href="{{ url_for('profile_views.follow') }}"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
                     <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
                     <li><a href="/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>
@@ -121,7 +122,6 @@
         </div><!-- /.navbar -->
       </div> <!-- /.container -->
     </div><!-- /.navbar-wrapper -->
-
       {% block body %}
       {% endblock %}
      <!-- FOOTER -->
@@ -139,7 +139,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ace.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/src/ace.js') }}"></script>
     <script>
       !function ($) {
         $(function(){
@@ -156,10 +156,11 @@
         })
       }(window.jQuery)
     </script>
+
     <script>
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/textmate");
     editor.getSession().setMode("ace/mode/javascript");
-  </script>
+    </script>
   </body>
 </html>

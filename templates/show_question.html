@@ -8,17 +8,13 @@
 	</div>
 	<p > <b>Description : </b> {{ question.question_string }} </p>
 	<p > <b>Sample Test Case : </b> {{ question.question_name }} </p>
-	<hr> <h3>Submit Code</h3>
+	<hr> <h4>Submit Code</h4>
 	<hr>
-	<form method='POST'>
-		<div id="editor" class="container">function foo(items) {
-	    var x = "All this is syntax highlighted";
-	    return x;
-		}
-		</div>	
-		code: <textarea name='code'></textarea><br>
-		lang: <input type='text' value='c' name='lang' />
-		<input type='submit' value="asda"> 
-		</form>
+
+	<form method='POST' action=''>
+		<pre id="editor" class="container"></pre>
+		<input class="btn " type="submit" id="submit" value="Submit">
+	</form>
+
 </div><!-- /.tabbable --> 
 {% endblock %}
