@@ -1,5 +1,4 @@
-CREATE TABLE contest ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "description" TEXT NOT NULL , "owner" INTEGER NOT NULL);
-;
+CREATE TABLE contest ("contest_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "start_time" DATETIME, "end_time" DATETIME, "name" TEXT NOT NULL , "company" TEXT NOT NULL , "short_description" TEXT NOT NULL ,"long_description" TEXT NOT NULL , "owner" INTEGER NOT NULL);
 CREATE TABLE contest_questions (
     "question_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "contest_id" INTEGER NOT NULL,
@@ -25,10 +24,48 @@ CREATE TABLE "users" (
     "picture" BLOB,
     "resume" BLOB
 );
+CREATE TABLE "question_comments" (
+"comment_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"question_id" INTEGER  NOT NULL,
+"user_id" INTEGER  NOT NULL,
+"comment" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+);
+
+
+CREATE TABLE "answer_comments" (
+"comment_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"submission_id" INTEGER  NOT NULL,
+"user_id" INTEGER  NOT NULL,
+"comment" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+);
+
+CREATE TABLE "question_discuss" (
+"question_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"user_id" INTEGER  NOT NULL,
+"question" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+);
+
+CREATE TABLE "answer_discuss" (
+"answer_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"user_id" INTEGER  NOT NULL,
+"question_id" INTEGER  NOT NULL,
+"answer" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+);
+
+CREATE TABLE "activity_log" (
+"activity_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"user_id" INTEGER  NOT NULL,
+"activity" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+);
 INSERT INTO users VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','8011244745','Student','IIT G','github.com','picture.img','resume.pdf');
-INSERT INTO contest VALUES(0,'1990-1-1 00:00:00','2099-1-1 00:00:00','Practice','Bazinga','Hone your skills',0);
-INSERT INTO contest VALUES(1,'1995-1-1 00:00:00','2014-1-1 00:00:00','InterIIT','Bazinga','Inter IIT coding challenge',0);
-INSERT INTO contest VALUES(2,'1995-1-1 00:00:00','2011-1-1 00:00:00','CodeSprint','Bazinga','Death Race',0);
+INSERT INTO contest VALUES(0,'1990-1-1 00:00:00','2099-1-1 00:00:00','Practice','Bazinga','Hone your skills',"Long Description Here",0);
+INSERT INTO contest VALUES(1,'1995-1-1 00:00:00','2014-1-1 00:00:00','InterIIT','Bazinga','Inter IIT coding challenge',"Long Description Here",0);
+INSERT INTO contest VALUES(2,'1995-1-1 00:00:00','2011-1-1 00:00:00','CodeSprint','Bazinga','Death Race',"Long Description Here",0);
 INSERT INTO contest_questions VALUES(1,0,0,'Primes','Generate the first 6 prime numbers');
 INSERT INTO contest_questions VALUES(2,0,0,'Primes2','Generate the first 6 prime numbers (2)');
 INSERT INTO contest_questions VALUES(3,0,0,'Primes3','Generate the first 6 prime numbers (3)');
