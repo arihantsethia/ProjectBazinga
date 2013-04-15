@@ -73,6 +73,12 @@ CREATE TABLE "activity_log" (
 "activity" TEXT  NOT NULL,
 "time" DATETIME  NOT NULL
 );
+CREATE TABLE "contact" (
+"activity_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+"user_id" INTEGER  NOT NULL,
+"activity" TEXT  NOT NULL,
+"time" DATETIME  NOT NULL
+)
 INSERT INTO admins VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','8011244745','IIT Guwahati','github.com','picture.img');
 INSERT INTO users VALUES(0,'arihant','arihant','arihantsethia07@gmail.com','Arihant Sethia','8011244745','Student','IIT G','github.com','picture.img','resume.pdf');
 INSERT INTO contest VALUES(0,'1990-1-1 00:00:00','2099-1-1 00:00:00','Practice','Bazinga','Hone your skills',"Long Description Here",0);
