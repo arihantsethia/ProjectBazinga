@@ -16,11 +16,12 @@
   		<div class="accordion-group">
   		<div class="accordion-heading">
   		<a class="accordion-toggle" data-toggle="collapse" data-parent="#submissions" href="#{{ sub[0].id }}" >
-  			Submission {{ sub[0].id }}
+  			{{ sub[0].question_name }}
   		</a>
   		</div>
   		<div id="{{ sub[0].id }}" class="accordion-body collapse">
   		<div class="accordion-inner">
+  			<a href="{{ url_for('contest_views.show_question', id=sub[0].question_id) }}">Show Question</a>
   			<pre class="pre-scrollable">
 {{ sub[0].code }}
   			</pre>
@@ -51,7 +52,8 @@
   	{% endfor %}
   	</div>
   </div>
+  
   </div><!-- /.row -->
-
+  <a class="btn" href="{{ url_for('contest_views.submissions', index=prev) }}">Prev</a> | <a class="btn" href="{{ url_for('contest_views.submissions', index=next) }}">Next</a>
 {% endblock %}
 
