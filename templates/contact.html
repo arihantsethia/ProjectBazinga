@@ -2,23 +2,26 @@
 {% block body %}  
 <div style="margin:100px">
 </div>
-<form class="well container">
+{% if not message %}
+
+<form aciton='contact' class="well container" onsubmit="return validateform();"method="post">
     <div class="row">
 		<div class="span4">
 			<label>First Name</label>
-			<input type="text" class="span4" placeholder="Your First Name">
+			<input type="text" class="span4" name="firstname" value="" placeholder="Your First Name">
 			<label>Last Name</label>
-			<input type="text" class="span4" placeholder="Your Last Name">
+			<input type="text" class="span4" name="lastname" value="" placeholder="Your Last Name">
 			<label>Email Address</label>
-			<input type="text" class="span4" placeholder="Your email address">
+			<input type="text" class="span4" name="email" value="" placeholder="Your email address">
           	<label>Subject</label>
-			<input type="text" class="span4" placeholder="Subject">
+			<input type="text" class="span4" name="subject" value="" placeholder="Subject">
 		</div>
 		<div class="span5">
 			<label>Message</label>
-			<textarea name="message" id="message" class="input-xlarge span8" rows="10"></textarea>
+			<textarea name="msg" id="msg" class="input-xlarge span8" rows="10"></textarea>
 		</div>	
 	</div>
 		<button type="submit" class="btn btn-primary pull-right">Send</button>
 </form>
+{% endif %}
 {% endblock %}

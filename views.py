@@ -1,7 +1,7 @@
 # Views.py : Handles the views of general modules
-
-from flask import Flask, render_template, redirect, url_for, Blueprint
-
+from flask import Flask, request, session, g, redirect, url_for, abort, \
+     render_template, flash, _app_ctx_stack,Blueprint
+import smtplib
 #Defining the Blueprint for views.py
 views = Blueprint('views',__name__)
 
@@ -13,8 +13,19 @@ def index():
 def home():
 	return render_template("index.html")
 
-@views.route('/contact')
-def home():
+@views.route('/contact', methods=['GET', 'POST'])
+def contact():
+	if request.method == 'POST':
+		email_to = "contact@bazinga.com"
+		email_from = request.form['email']
+		email_subject = request.form['subject']
+		email_msg = request.form['msg']+'\n'+ request.form['firstname']+' '+request.form['lastname']
+		#Define host to send mail
+		#server = smtplib.SMTP(HOST)
+		#server.sendmail(email_from, [email_to], email_msg)
+		#server.quit()
+		message = "Thank You for Contacting Us. We will soon get in touch with you."
+		return render_template("index.html" , message = message)
 	return render_template("contact.html")
 
 
