@@ -7,9 +7,21 @@
 	<div class="page-header" >
 		<h3 >{{ question.question_name }} | {{ contest.name }} </h3>
 	</div>
+	{% with msgs = get_flashed_messages() %}
+	{% if msgs %}
+		{% for msg in msgs %}
+			<div class="alert alert-info">
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+			  <strong>Heads up!</strong> {{ msg|safe }}
+			</div>
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
 	<p > <b>Description : </b> {{ question.question_string }} </p>
 	<p > <b>Sample Test Case : </b> {{ question.question_name }} </p>
-	<hr> <h4>Submit Code</h4>
+	<hr> 
+	{% if session.logged_in %}
+	<h4>Submit Code</h4>
 	<hr>
 
 	<ul id="langTab" class="nav nav-pills">
@@ -19,15 +31,18 @@
 		<li><a id="cpp" lname="c_cpp" href="#">C++</a></li>
 		<li><a id="c" lname="c_cpp" href="#">C</a></li>
 	</ul>
-
 	<div id="editor"></div>
 	<form id="codeform" method='POST' action=''>
 		
 		<input name="lang" id="lang" type="hidden"/>
 		<input name="code" id="code" type="hidden"/>
 		<hr class="separator" />
+
 		<input class="btn " type="submit" id="submit" value="Submit">
 	</form>
+	{% else %}
+	<p> Please login to sumbit the solution </p>
+	{% endif %}
 
 </div><!-- /.tabbable -->
 

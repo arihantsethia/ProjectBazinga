@@ -28,6 +28,20 @@ def index():
     return render_template("practice.html")
 
 
+@contest_views.route('/code/submissions/<int:index>')
+def submissions(index=0):
+	user_id = 0
+	db = get_db()
+	cur = db.execute('SELECT * FROM submissions WHERE user_id = ? ORDER BY id DESC LIMIT ?, ?', [user_id, index, index+10])
+	subs = cur.fetchall()
+	subss = [[sub, []] for sub in subs]
+	for i in range(0, len(subs)):
+		#subss[i][0]['code'] = subss[i][0]['code'].replace("<", "&lt;").replace(">", "&gt;")
+		cur = db.execute('SELECT * FROM submission_testcase WHERE submission_id=?', [subs[i]['id']])
+		tcs = cur.fetchall()
+		subss[i][1] = tcs
+	return render_template("submissions.html", subs=subss)
+
 @contest_views.route('/code')
 def contests():
 	db = get_db()
@@ -41,7 +55,9 @@ def show_contest(contest_id=0):
 	db = get_db()
 	cur = db.execute('SELECT * FROM contest_questions WHERE contest_id = ?', [contest_id])
 	qs = cur.fetchall()
-	return render_template("contest_questions.html", questions=qs)
+	cur = db.execute('SELECT * FROM contest WHERE contest_id = ?', [contest_id])
+	con = cur.fetchone()
+	return render_template("contest_questions.html", questions=qs, contest=con)
 
 @contest_views.route('/code/questions/<int:id>', methods=['GET','POST'])
 def show_question(id=0):
@@ -65,15 +81,22 @@ def show_question(id=0):
 		pts = 0
 		for tc in testcases:
 			(out, err) = bw.compilerun(sid, code, tc['test'], lang, tc['space_limit'], tc['time_limit'])
+			print 'ERROR: %s' % err
+			#result type: -1 => WRONG ANSWER, -2 => ERROR, >0 => correct, -3 => TLE
 			if (err == '' and out == tc['answer']):
 				pts += int(tc['points'])
 				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,"",0,0)', [tc['testcase_id'], sid, tc['points']])
-			else:
-				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,?,0,0)', [tc['testcase_id'], sid, 0, err])
+			elif (err[:3] == 'TLE'):
+				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,?,0,0)', [tc['testcase_id'], sid, -3, err])
+			elif (err != ''):
+				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,?,0,0)', [tc['testcase_id'], sid, -2, err])
+			elif (out != tc['answer']):
+				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,?,0,0)', [tc['testcase_id'], sid, -1, ""])
 		db.execute('UPDATE submissions SET points = ? WHERE id=?', [pts, sid])
 		#return render_template('submission_result.html', points=pts)
 		db.commit()
 		print 'points: %d' % pts
+		flash('Your solution is being evaluated. You can check the <a href="../submissions/0" >submissions</a> tab for results.')
 
 
 	cur = db.execute('select * from contest_questions where question_id = ?', [id])

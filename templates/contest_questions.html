@@ -4,7 +4,7 @@
 </div>
 <div class="container">
 	<div class="page-header">
-		<h2>{{ questions[0].contest_id }}</h2>
+		<h2>{{ contest.name }}</h2>
 	</div>
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
@@ -13,8 +13,7 @@
 		  </ul>
 		<div class="tab-content">
 		    <div id="pane1" class="tab-pane active">
-		      <h4>The Markup</h4>
-		      <pre>Code here ...</pre>
+		      {{ contest.long_description|safe }}
 		    </div>
 	    <div id="pane2" class="tab-pane">
 	    	<table class="table table-striped">
