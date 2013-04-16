@@ -25,9 +25,8 @@ def follow_unfollow(followingid,action):
 	else:
 		cur = db.execute('delete from follow where follower=? and following=?',[int(session['userId']),int(followingid)])
 	string = '/profile/'+str(followingid)
+	db.commit()
 	return redirect(string)
-
-
 
 #127.0.0.1:5000/profile/<number> shows the profile of the person with uid=<number>
 @profile_views.route('/profile/<path>')

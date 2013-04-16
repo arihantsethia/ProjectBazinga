@@ -52,6 +52,7 @@ def register():                    #renders the signup.html
 		db = get_db()
 		#cur = db.execute('insert into users (username, pass, email, name) values (?, ?, ?, ?)',[request.form['username'], request.form['password'], request.form['mail'], request.form['name']])
 		message = "Congratulations "+request.form['username']+", Please check your email to activate the account "
+		db.commit()
 		return render_template('index.html' , message=message )
 	return render_template('register.html')
 

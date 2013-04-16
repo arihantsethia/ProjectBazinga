@@ -24,134 +24,105 @@
     </div>
   </div>
 </div>
-  <hr />
-{% else %}
-<div style="padding:50px">
-</div>
-<div class="container marketing">
-  <form class="form-horizontal" action='admin/contest' method="POST" name="contestform">
-    <fieldset>
-      <div id="legend">
-        <legend class=""><h2>Lets organize a Treat!!</h2></legend>
-      </div>
-      <div class="control-group">
-        <!-- Username -->
-        <label class="control-label"  for="contestname">Contest Name</label>
-        <div class="controls">
-          <input type="text" id="contestname" name="contestname" placeholder="" class="input-xlarge">
-         
+<hr />
+{% else %} 
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="static/images/bg1.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+            </div>
+          </div>
         </div>
+        <div class="item">
+          <img src="static/images/bg2.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Learn more</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="static/images/bg3.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another another example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Learn more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="span4">
+          <img class="img-circle" data-src="holder.js/140x140">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" data-src="holder.js/140x140">
+          <h2>Heading</h2>
+          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" data-src="holder.js/140x140">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="static/images/browser-icon-chrome.png">
+        <h2 class="featurette-heading">Why Project Bazinga? <span class="muted">It'll blow your mind.</span></h2>
+        <p class="lead">Phone interviews help in filtering less than 60% of candidates in the first step. Moreover, they're a huge time sink to the developers and the company. A lot of candidates can't pass a simple fizz buzz challenge. Project Bazinga helps you to screen candidates with an automated evaluation</p>
       </div>
 
-      <div class="control-group">
-        <!-- Username -->
-        <label class="control-label"  for="company">Company</label>
-        <div class="controls">
-          <input type="text" id="company" name="company" placeholder="" class="input-xlarge">
-          
-        </div>
-      </div>
-   
-      <div class="control-group">
-        <!-- E-mail -->
-        <label class="control-label" for="start-time">Start Time</label>
-        <div class="controls">
-          <input type="datetime" id="start-time" name="start-time" placeholder="" class="input-xlarge">
-          <p class="help-block">Format should be YYYY-MM-DD HH:MM:SS</p>
-        </div>
-      </div>
-   
-      <div class="control-group">
-        <!-- Password-->
-        <label class="control-label" for="end-time">End Time</label>
-        <div class="controls">
-          <input type="datetime" id="end-time" name="end-time" placeholder="" class="input-xlarge">
-          <p class="help-block">Format should be YYYY-MM-DD HH:MM:SS</p>
-        </div>
-      </div>
-   
-      <div class="control-group">
-        <!-- Password -->
-        <label class="control-label"  for="shortdesc">Short Description </label>
-        <div class="controls">
-          <input type="text" id="shortdesc" name="shortdesc" placeholder="" class="input-xlarge">
-          <p class="help-block">Provide short description</p>
-        </div>
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-left" src="static/images/browser-icon-firefox.png">
+        <h2 class="featurette-heading">Automated evaluation. <span class="muted">Code in 
+15 languages</span></h2>
+        <p class="lead">Interviewstreet supports 16 programming languages (C, C++, Java, C#, Python, PHP, Ruby, Perl, Javscript, Haskell, Scala, Clojure, SQL, MySQL, R and Go) for you to create custom programming challenges or choose from our library. Here's a sample programming challenge</p>
       </div>
 
-<div class="control-group">
-        <!-- Password -->
-        <label class="control-label"  for="longdesc">Long Description </label>
-        <div class="controls">
-          <input type="text" id="longdesc" name="longdesc" placeholder="" class="input-xlarge">
-          <p class="help-block">Provide long description</p>
-        </div>
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="static/images/browser-icon-safari.png">
+        <h2 class="featurette-heading">Instant reports & code snapshots. <span class="muted">Checkmate.</span></h2>
+        <p class="lead">No wait time. You get the code evaluation report in your inbox once the candidate completes the challenge with a detailed review. The report also includes code snapshots at different points in time. This helps identify the thought process. See a sample report here</p>
       </div>
-      
-    
-    <div class="control-group">
-        <input type="hidden" name="count" value="1" />
-        <!-- Questions -->
-        <label class="control-label">Questions </label>
-        <div class="controls" id="question">
-            <input class="input-xlarge" id="question_name1" name="question_name1" type="text" placeholder="Question Name"><br><br>
-            <textarea class="input-xlarge" id="question_desc1" name="question_desc1" type="text" rows="5" placeholder="Question Description"></textarea> <br><br>
-             <div class="control-group" >
-             <input type="hidden" name="count1" value="1" />
-             <label class="control-label">Test Cases </label>
-             <div class="controls" id="testcase">
-                <textarea class="input-xlarge" id="question1_incase1" name="question1_incase1" type="text" rows="5" placeholder="Expected Input"></textarea><br><br>
-                <textarea class="input-xlarge" id="question1_outcase1" name="question1_outcase1" type="text" rows="5" placeholder="Expected Output"></textarea><br><br>
-                <div class = "rows">
-                 <input class="input" id="question1_points1" name="question1_name1" type="text" placeholder="Points">   
-                 <input class="input-xlarge" id="question1_tl1" name="question1_tl1" type="text" placeholder="Time Limit"> 
-                 <input class="input-xlarge" id="question1_sl1" name="question1_sl1" type="text" placeholder="Space Limit"> 
-                 </div>    
-                <hr id="end1_testcase1">
-                <button onClick="addTestcase()" class="btn btn-info" type="button">+ Add Another Test Case</button>
-            </div>           
-            <hr id="end_question1">
-        <button id="b1" onClick="addQuestion()" class="btn btn-info" type="button">+ Add Another Question</button>
-        </div>
-    </div>
-    </div>
-    
-      <div class="control-group">
-        <!-- Button -->
-        <div class="controls">
-          <button class="btn btn-success">Add Contest</button>
-        </div>
-      </div>
-      
-    </fieldset>
-  </form>
-<div>
-<script type="text/javascript">
-    var next = 1;
-    var nextCase=1;
-    function addQuestion(){
-        nextCase = 1;
-        var addto = "#end_question"+next ;
-        next = next + 1;
-        var newIn = '<input class="input-xlarge" id="question_name' + next + '" name="question_name' + next + '" type="text" placeholder="Question Name"><br><br>';
-        newIn = newIn + '<textarea class="input-xlarge" id="question_desc' + next + '" name="question_desc' + next + '" type="text"  rows="5" placeholder="Question Description"></textarea><br><br>' ;
-        newIn = newIn + '<div class="control-group" > <input type="hidden" name="count'+next+'" value="1" /> <label class="control-label">Test Cases </label> <div class="controls" id="testcase"><textarea class="input-xlarge" id="question'+next+'_incase1" name="question'+next+'_incase1" type="text" rows="5" placeholder="Expected Input"></textarea><br><br><textarea class="input-xlarge" id="question'+next+'_outcase1" name="question'+next+'_outcase1" type="text" rows="5" placeholder="Expected Output"></textarea><br><br><div class = "rows"> <input class="input" id="question'+next+'_points1" name="question'+next+'_name1" type="text" placeholder="Points">  <input class="input-xlarge" id="question'+next+'_tl1" name="question'+next+'_tl1" type="text" placeholder="Time Limit">  <input class="input-xlarge" id="question'+next+'_sl1" name="question'+next+'_sl1" type="text" placeholder="Space Limit">  </div> <hr id="end'+next+'_testcase1"> <button onClick="addTestcase()" class="btn btn-info" type="button">+ Add Another Test Case</button> </div> <hr id="end_question'+next+'">';
-        var newInput = $(newIn);
-        $(addto).after(newInput);
-        $("#count").val(next);
-    }
-    
-    function addTestcase(){
-        var addto = "#end"+next+"_testcase"+nextCase;
-        nextCase = nextCase + 1;
-        var newIn = '<textarea class="input-xlarge" id="question'+next+'_incase' + nextCase + '" name="question'+next+'_incase' + nextCase + '" type="text" rows="5" placeholder="Expected Input"></textarea><br><br>';
-        newIn = newIn + '<textarea class="input-xlarge" id="question'+next+'_outcase' + nextCase + '" name="question'+next+'_outcase' + nextCase + '" type="text" rows="5" placeholder="Expected Output"></textarea><br><br>' ;
-        newIn = newIn + '<div class = "rows"> <input class="input" id="question'+next+'_points'+nextCase+'" name="question'+next+'_points'+nextCase+'" type="text" placeholder="Points"> <input class="input-xlarge" id="question'+next+'_tl'+nextCase+'" name="question'+next+'_tl'+nextCase+'" type="text" placeholder="Time Limit"> <input class="input-xlarge" id="question'+next+'_sl'+nextCase+'" name="question'+next+'_sl'+nextCase+'" type="text" placeholder="Space Limit"><br><br> </div>' ;
-        newIn = newIn +'<hr id="end'+next+'_testcase'+nextCase+'">';
-        var newInput = $(newIn);
-        $(addto).after(newInput);
-        $("#count"+next).val(next);
-    }
-    </script>  
+
+      <hr class="featurette-divider">
 {% endif %}
 {% endblock %}
