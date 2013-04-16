@@ -50,7 +50,18 @@
                 <li><a href="/code"><i class="icon-pencil icon-white"></i>&nbsp; Code</a></li>  
                 <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Discuss</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Submissions</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications (0)<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
               </ul>
               <!-- Login  -->
               <ul class="nav pull-right">
@@ -81,12 +92,15 @@
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-user"> </i> &nbsp;Profile</a></li>
-                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;Friends</a></li>
-                    <li><a href="{{ url_for('profile_views.follow') }}"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
-                    <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
+                    <li><a href="/profile/follow/-1"><i class="icon-star"> </i> &nbsp;Friends</a></li>
+                    <li><a href="/profile/follow/-1"><i class="icon-search"> </i> &nbsp; Recent Activites</a></li>
+                    <li><a href="#loginModal" data-toggle="modal"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
                     <li><a href="/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>
                     <li><a href="/change"><i class="icon-cog"></i> &nbsp; Change Password</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="icon-lock"></i> &nbsp;Apply for Problem Setter</a></li>
+                    <li><a href="#"><i class="icon-lock"></i> &nbsp;Apply for Competition Organiser</a></li>
                   </ul>
                   </ul>
                 </li>
@@ -115,10 +129,38 @@
      <div class="container ">
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Project Bazinga, Inc. &middot; <a href="#">About</a> &middot; <a href="#">Careers</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="contact">Contact Us</a> &middot; <a href="admin">Organizers</a> &middot;</p>
+        <p>&copy; 2013 Project Bazinga, Inc. &middot; <a href="#">About</a> &middot; <a href="#">Careers</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="#">Contact Us</a> &middot;</p>
       </footer>
-    </div>
     <div>
+    
+
+
+
+
+
+    <div class="modal hide" id="loginModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">✕</button>
+        <h3>Search Users</h3>
+    </div>
+        <div class="modal-body" style="text-align:center;">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <div id="modalTab">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="login">
+                            <form method="get" action='/search' name="login_form">
+                                <p><input type="text" class="span12" name="search" id="search" placeholder="Name"></p>
+                                <p><button type="submit" class="btn btn-primary">Search</button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <!-- Le javascript
@@ -126,7 +168,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-    <!-- <script src="{{ url_for('static', filename='js/src/ace.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/src/ace.js') }}"></script>
     <script>
       !function ($) {
         $(function(){
@@ -144,6 +186,10 @@
       }(window.jQuery)
     </script>
 
-
+    <script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/textmate");
+    editor.getSession().setMode("ace/mode/javascript");
+    </script>
   </body>
 </html>

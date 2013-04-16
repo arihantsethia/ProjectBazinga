@@ -6,12 +6,17 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from time import gmtime, strftime
 import bw
 
+import urllib
+import urllib2
+
 #Defining the Blueprint for contest_views.py
 contest_views = Blueprint('contest_views',__name__)
 
 #curtime = strftime("%Y-%m-%d %H:%M:%S", gmtime()) #use this when we need to use the GMT
-curtime = strftime("%Y-%m-%d %H:%M:%S") #use this when we need to use local  time of the server
+#curtime = strftime("%Y-%m-%d %H:%M:%S") #use this when we need to use local  time of the server
 
+def curtime():
+	return strftime("%Y-%m-%d %H:%M:%S")
 
 #This function sets the database connection
 def get_db():
@@ -47,7 +52,7 @@ def submissions(index=0):
 @contest_views.route('/code')
 def contests():
 	db = get_db()
-	cur = db.execute('SELECT * FROM contest WHERE end_time > ?',[curtime])
+	cur = db.execute('SELECT * FROM contest WHERE end_time > ?',[curtime()])
 	cs = cur.fetchall()
 	return render_template("code.html", contests=cs)
 
@@ -63,18 +68,29 @@ def show_contest(contest_id=0):
 
 @contest_views.route('/code/questions/<int:id>', methods=['GET','POST'])
 def show_question(id=0):
+
+	if request.method =='POST':
+		url = 'http://localhost:1234'	#loadbalancer
+		values = {'qid' : id, 'code': request.form['code'], 'lang': request.form['lang'], 'user_id': session['userId'] } 
+
+		data = urllib.urlencode(values)
+		rresponse = urllib2.urlopen(url, data)
+		page = rresponse.read()
+		flash('Your solution is being evaluated. You can check the <a href="../submissions/0" >submissions</a> tab for results.')
+
+
 	db = get_db()
 
-	if(request.method =='POST' and session.logged_in) :
+	if(request.method =='POST' and session['logged_in'] and False) :
 		#f_name = 'asdf'+curtime+'.txt'
 		#fo = open('uploads/'+f_name, "wb")
 		#fo.write( "Python is a great language.\nYeah its great!!\n");
 		code = request.form['code']
 		lang = request.form['lang']
 		print 'code:\n%s\nlang:\n%s' % (code, lang)
-		userid = session.userId;
+		userid = session['userId'];
 
-		db.execute('insert into submissions (user_id, submission_time, code, lang, points) VALUES (?,?,?,?,?)', [userid, curtime, code, lang, 0])
+		db.execute('insert into submissions (user_id, submission_time, code, lang, points) VALUES (?,?,?,?,?)', [userid, curtime(), code, lang, 0])
 		cur = db.execute('SELECT last_insert_rowid() AS id FROM submissions');
 		sid = int(cur.fetchone()['id'])
 

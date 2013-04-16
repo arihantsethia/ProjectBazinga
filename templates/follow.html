@@ -4,14 +4,14 @@
 </div>
 <div class = "container" >
 	<div class="page-header">
-		<h2>Recent Activites</h2>
+		<h2>Following</h2>
 	</div>
 {% for i in following %}
-	<li>User id = {{i.following}}
-	<br>
+	<h3><a href="/profile/{{i.following}}">{{i.username}}</a> ({{i.name}})</h3>
 	{% for j in info %}
 		{% if j.user_id == i.following %}
-			<li>{{j.user_id}}	{{j.q_id}}	{{j.status}}
+			Problem id : {{j.id}} Language   : {{j.lang}} Submission Time : {{j.submission_time}}
+		<br>
 		{% endif %}
 	{% endfor %}
 	<br><br><br>
