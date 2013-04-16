@@ -54,6 +54,11 @@
   </div>
   
   </div><!-- /.row -->
-  <a class="btn" href="{{ url_for('contest_views.submissions', index=prev) }}">Prev</a> | <a class="btn" href="{{ url_for('contest_views.submissions', index=next) }}">Next</a>
+  <div class="pagination">
+    <ul>
+      <li><a href="{{ url_for('contest_views.submissions', index=prev) }}">&laquo; Prev</a></li>
+      <li><a href="{{ url_for('contest_views.submissions', index=next) }}">Next &raquo;</a></li>
+    </ul>
+  </div>
 {% endblock %}
 

@@ -33,8 +33,9 @@ def index():
     return render_template("practice.html")
 
 
-@contest_views.route('/code/submissions/<int:index>')
+@contest_views.route('/code/submissions/<index>')
 def submissions(index=0):
+	index = int(index)
 	if index<0:
 		index=0
 	user_id = session['userId']

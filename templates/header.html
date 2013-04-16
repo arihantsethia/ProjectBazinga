@@ -55,6 +55,7 @@
               <!-- Login  -->
               <ul class="nav pull-right">
                 {% if not session.logged_in  %}
+
                 <li class="dropdown">
                   <a class="dropdown-toggle" href="" data-toggle="dropdown"><span {% if error %} class="text-error " {% endif %} > Sign In <strong class="caret"></strong> </span ></a>
                   <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
@@ -77,6 +78,7 @@
                   </div>
                 </li>
                 {% else %}
+                <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Submissions</a></li>
                 <li class="dropdown" id="nots">
 
                 </li>
