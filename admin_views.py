@@ -28,26 +28,20 @@ def admin_login():
 	if request.method == 'POST':
 		flag=0
 		db = get_db()
-		cur = db.execute('select * from admins')
-		rows = cur.fetchall()	
-		for row in rows:			
-			if row[1]==request.form['username'] and row[2]==request.form['password']:				
-				userid=row[0]
-				username=row[1]
-				flag=1
-				break			
-		if flag==0:
-			error = 'Invalid username or password'
-			flash('Invalid username or password')
-			session['admin_logged_in'] = False
-			session['admin_username'] = ''
-			session['admin_userId'] = None
-		else:
-			error = 0
+		cur = db.execute('SELECT * from admins WHERE username=?',[request.form['username']])
+		row = cur.fetchone()	
+		if row[2]==request.form['password']:				
+			userid=row[0]
+			username=row[1]
 			session['admin_logged_in'] = True
 			session['admin_username'] = username
 			session['admin_userId'] = userid
-			message = "Admin Logged in succesfully"	
+			message = "Admin Logged in succesfully"
+		else:
+			error = 'Invalid username or password'
+			session['admin_logged_in'] = False
+			session['admin_username'] = ''
+			session['admin_userId'] = None		
 		return render_template('admin.html',error=error,message=message)
 	return render_template('admin.html')
 
@@ -94,5 +88,8 @@ def addcontest():
 		return render_template('success.html' , message=message )
 	return render_template('organize.html')
 
-
+@admin_views.route('/admin/contest/edit',methods=['POST','GET'])
+def contest_edit() :
+	print session['admin_userId']
+	return render_template ('admin.html')
 
