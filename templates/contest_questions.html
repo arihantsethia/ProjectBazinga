@@ -4,7 +4,7 @@
 </div>
 <div class="container">
 	<div class="page-header">
-		<h2>{{ contest.name }}</h2>
+		<h2>{{ questions[0].contest_id }}</h2>
 	</div>
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
@@ -13,7 +13,8 @@
 		  </ul>
 		<div class="tab-content">
 		    <div id="pane1" class="tab-pane active">
-		      {{ contest.long_description|safe }}
+		      <h4>The Markup</h4>
+		      <pre>Code here ...</pre>
 		    </div>
 	    <div id="pane2" class="tab-pane">
 	    	<table class="table table-striped">
@@ -23,6 +24,7 @@
 	    	            <th>Points</th>
 	    	            <th>Difficulty</th>
 	    	            <th>Solved</th>
+	    	            <th>Discussion</th>
 	    	        </tr>
 	    	    </thead>
 	    	    {% for question in questions %}
@@ -32,6 +34,7 @@
 		    	            <td>{{ question.question_name }} </td>
 		    	            <td>{{ question.question_name }}</td>
 		    	            <td>{{ question.question_name }}</td>
+		    	            <td> <a href="{{ url_for('question_comments.show_question_comments', id=question.question_id) }}" >discuss</td>
 		    	        </tr>
 	    	    	</tbody>
 	    	    {% endfor %}

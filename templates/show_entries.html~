@@ -1,0 +1,34 @@
+{% extends "header.html" %}
+{% block body %}  
+<div style="margin:100px">
+</div>
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+    
+<div class="page-header">
+    <h2>WElcome to disscussion module </h2>
+</div>
+     {% if session.logged_in %}
+     <form action="{{ url_for('.add_question') }}" method='GET'>
+      Question?: <input type='text' name='comment' />
+      <input type='submit' value="ask question"> 
+    </form>
+    {% endif %}
+
+    
+     <ul class=entries > 
+        {% for text in entries %}
+          <li> 
+              user: {{ text.user_id }} -- {{ text.question }} 
+              <form action="{{ url_for('.show_answers' , id = text.question_id) }}" method='GET' >
+                <input type='text' name='q_id' value={{ text.question_id }} style = 'display:none' /> 
+                <input type='submit' value="answers"> 
+              </form>
+          </li>
+        {% endfor %}
+     </ul>   
+
+{% endblock %}
+

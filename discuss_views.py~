@@ -36,7 +36,7 @@ def add_question():
     curtime = strftime("%Y-%m-%d %H:%M:%S")
     #use this when we need to use local  time of the server
     db.execute('insert into question_discuss (user_id, question, title, time) values (?, ?, ?, ?)',
-                 [user_id, request.args.get('comment'), request.args.get('title'), curtime])
+                 [user_id, request.args.get('comment'), request.args.get('Title'), curtime])
     db.commit()
 
     que = db.execute('SELECT question_id FROM question_discuss order by question_id DESC LIMIT 1')

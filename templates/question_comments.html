@@ -1,25 +1,37 @@
-<html>
-  <head>
-  </head>
-  <body>
-    <h2>WElcome to disscussion module </h2>
-     <h3>Show question # : {{ q_no }} </h3>
-     <form action="{{ url_for('.show_questions') }}" ><input type="submit" value="back"></form>
-
-     {% if session.logged_in %}
-     <form action="{{ url_for('.add_comment') }}" method='POST'  class=add-comment>
-      Comment: <input type='text' name='comment' />
-      <input type='text' name='q_id' value={{ q_no }} style='display:none' />
-      <input type='submit' value="comment"> 
-    </form>
-    {% endif %}
+{% extends "header.html" %}
+{% block body %} 
+<div style="margin:100px">
+</div>
+<div class="container">
+  <div class="page-header">
+    <h2>Discussions</h2>
+  </div>
+     <h3>Question # : {{ q_no }} </h3>
+     <p > <b>Description : </b> {{ question.question_string }} </p>
 
      <ul class=entries > 
         {% for text in entries %}
           <li>
-              user: {{ text.user_id }} -- {{ text.comment }}              
+              user: {{ text.username }} -- {{ text.comment }}              
           </li>
         {% endfor %}
-     </ul>   
-  </body>
-</html>
+     </ul>  
+
+
+
+     {% if session.logged_in %}
+     <form action="{{ url_for('.add_question_comment') }}" method='GET'  >
+      <div class="controls">
+        <legend class=""><h4>Comment on this Question</h4></legend>
+            <input type="text" name="title" placeholder="Type Your comment Here" class="container"><br><br>
+    </div>
+      <input type='text' name='q_id' value={{ q_no }} style='display:none' />
+      <div class="controls">
+      <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right">Comment</button>
+    </div>
+    </form>
+    {% endif %}
+          
+
+
+{% endblock %}
