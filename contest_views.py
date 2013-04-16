@@ -40,15 +40,16 @@ def submissions(index=0):
 		index=0
 	user_id = session['userId']
 	db = get_db()
-	cur = db.execute('SELECT * FROM submissions LEFT JOIN contest_questions ON submissions.question_id=contest_questions.question_id WHERE user_id = ? ORDER BY id DESC LIMIT ?, ?', [user_id, index, index+10])
+	cur = db.execute('SELECT * FROM submissions LEFT JOIN contest_questions ON submissions.question_id=contest_questions.question_id WHERE user_id = ? ORDER BY id DESC LIMIT ?, ?', [user_id, index, 10])
 	subs = cur.fetchall()
 	subss = [[sub, []] for sub in subs]
+	print len(subss)
 	for i in range(0, len(subs)):
 		#subss[i][0]['code'] = subss[i][0]['code'].replace("<", "&lt;").replace(">", "&gt;")
 		cur = db.execute('SELECT * FROM submission_testcase WHERE submission_id=?', [subs[i]['id']])
 		tcs = cur.fetchall()
 		subss[i][1] = tcs
-	return render_template("submissions.html", subs=subss, next=index+11, prev=index-11)
+	return render_template("submissions.html", subs=subss, next=index+10, prev=index-10)
 
 @contest_views.route('/code')
 def contests():

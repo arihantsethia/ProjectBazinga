@@ -51,6 +51,13 @@ def evaluate(response):
 		cur = db.execute('SELECT last_insert_rowid() AS id FROM submissions');
 		sid = int(cur.fetchone()['id'])
 
+		cur = db.execute('select username from users where user_id = ?', [userid])
+		username = cur.fetchone()['username']
+		cur = db.execute('select question_name from contest_questions where question_id = ?', [id])
+		qname = cur.fetchone()['question_name']
+		activity_string = '%s solved %s' % (username, qname)
+		url = 'http://localhost:5000/questions/%d' % id
+
 		cur = db.execute('SELECT * FROM question_testcase WHERE question_id = ?', [id])
 		testcases = cur.fetchall()
 		pts = 0
@@ -69,6 +76,9 @@ def evaluate(response):
 				db.execute('insert into submission_testcase (testcase_id, submission_id, result_type, result, run_time, run_space) VALUES (?,?,?,?,0,0)', [tc['testcase_id'], sid, -1, ""])
 		db.execute('UPDATE submissions SET points = ? WHERE id=?', [pts, sid])
 		#return render_template('submission_result.html', points=pts)
+		#add to activity log
+		if pts > 0:
+			db.execute('insert into activity_log (user_id, activity, time, url) VALUES (?,?,?)', [userid, activity_string, curtime(), url])
 		db.commit()
 		print 'points: %d' % pts
 		return response
