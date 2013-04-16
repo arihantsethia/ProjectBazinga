@@ -1,0 +1,30 @@
+{% extends "header.html" %}
+{% block body %}  
+<div style="margin:100px">
+</div>
+
+    <h2>WELCOME TO DISCUSSION MODULE </h2>
+
+    <form action="{{ url_for('.show_questions') }}" ><input type="submit" value="back"></form>
+
+    <h4> Question : -- {{ ques.question }} </h4>
+     <h4>( asked by {{  name.username  }} )</h4>
+
+        {% if session.logged_in %}        
+        
+        <form action="{{ url_for('.add_answer') }}" method='GET'>
+          write answer: <input type='text' name='answer' />
+          <input type='text' name='q_id' value={{ ques.question_id }} style = 'display:none' /> 
+          <input type='submit' value="Answer"> 
+        </form>
+        {% endif %}
+
+        <ul class=entries > 
+            {% for text2 in entries %}
+              <li> 
+                  user: {{ text2.user_id }} - {{ text2.answer }}
+              </li>
+            {% endfor %}
+         </ul>  
+
+{% endblock %}

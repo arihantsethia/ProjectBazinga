@@ -4,6 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack, Blueprint
 from time import gmtime, strftime
 
+
 discuss_views = Blueprint('discuss_views',__name__)
 
 		
@@ -16,92 +17,82 @@ def get_db():
     return top.sqlite_db 
 
 
-
 @discuss_views.route('/discuss')
 def show_questions():
     db = get_db()
-    com = db.execute('SELECT * FROM question_discuss order by question_id desc;')
+    com = db.execute('SELECT * FROM question_discuss AS q JOIN users AS u ON q.user_id=u.user_id order by question_id desc;')
     entries = com.fetchall()
     return render_template('show_entries.html', entries=entries)
 
 
-@discuss_views.route('/discuss/add', methods=['POST'])
+@discuss_views.route('/discuss/add', methods=['GET'])
 def add_question():
     db = get_db()
+    db2 = get_db()
 
-    user_id = 1
+    user_id = session['userId']
 
     #comment = 'Hi'
     curtime = strftime("%Y-%m-%d %H:%M:%S")
     #use this when we need to use local  time of the server
-    db.execute('insert into question_discuss (user_id, question, time) values (?, ?, ?)',
-                 [user_id, request.form['comment'], curtime])
+    db.execute('insert into question_discuss (user_id, question, title, time) values (?, ?, ?, ?)',
+                 [user_id, request.args.get('comment'), request.args.get('title'), curtime])
     db.commit()
 
+    que = db.execute('SELECT question_id FROM question_discuss order by question_id DESC LIMIT 1')
+    q_id = que.fetchone()
+
     activity = 'questioned'
-    db.execute('insert into activity_log (user_id, activity, time) values (?, ?, ?)',
-                 [user_id, activity, curtime])
-    db.commit()
+    url = '/discuss/show/answers/' + str(q_id[0])
+    db2.execute('insert into activity_log (user_id, activity, time, url) values (?, ?, ?, ?)',
+                 [user_id, activity, curtime, url])
+    db2.commit()
 
     flash('New comment was successfully posted')
     return redirect(url_for('.show_questions'))
 
 
-@discuss_views.route('/discuss/show/answers', methods=['POST'])
-def show_answers():
+@discuss_views.route('/discuss/show/answers/<int:id>', methods=[ 'GET'])
+def show_answers(id=0) :
     db = get_db()
-    q_id = request.form['q_id']
-
-    """
-        this need to be checked 
-    que1 = db.execute('SELECT * FROM question_discuss WHERE question_id = ?', [q_id])
-    question = que1.fetchone()
-    time = question.time
-    """
-
-    que2 = db.execute('SELECT * FROM question_discuss WHERE question_id >  ? order by question_id desc', [q_id])
-    preques = que2.fetchall()
-
-    que = db.execute('SELECT * FROM question_discuss WHERE question_id = ?', [q_id])
+    que = db.execute('SELECT * FROM question_discuss WHERE question_id = ?', [id])
     ques = que.fetchone()
-
-    ans = db.execute('SELECT * FROM answer_discuss WHERE question_id = ? order by time desc', [q_id])
+    user = db.execute('SELECT * FROM users WHERE user_id = ?', [ques[1]])
+    name = user.fetchone()
+    ans = db.execute('SELECT * FROM answer_discuss AS q JOIN users AS u ON q.user_id=u.user_id WHERE question_id = ? order by time desc', [id])
     entries = ans.fetchall()
-
-    que3 = db.execute('SELECT * FROM question_discuss WHERE question_id < ? order by question_id desc ', [q_id])
-    postques = que3.fetchall()
-    return render_template('show_entries_with.html', preques=preques, ques=ques, postques=postques, entries=entries)
+    return render_template('question_discuss.html', ques=ques, entries=entries, name=name)      
 
 
-@discuss_views.route('/discuss/show/answers/add', methods=['POST'])
+@discuss_views.route('/discuss/show/answers/add', methods=['GET'])
 def add_answer():
     db = get_db()
-    if(request.method =='POST') :
-        user_id = 1
+    q_id = request.args.get('q_id')
+    if(request.method =='GET') :
+        user_id = session['userId']
         #comment = 'Hi'
         curtime = strftime("%Y-%m-%d %H:%M:%S")
         #use this when we need to use local  time of the server
         db.execute('insert into answer_discuss (user_id, answer, question_id, time) values (?, ?, ?, ?)',
-                     [user_id, request.form['answer'], request.form['q_id'], curtime])
+                     [user_id, request.args.get('answer'), request.args.get('q_id'), curtime])
         db.commit()
 
         # in activity log
-        activity = 'answered' + ';' + str(request.form['q_id'])
-        db.execute('insert into activity_log (user_id, activity, time) values (?, ?, ?)',
-                     [user_id, activity, curtime])
+        activity = 'answered' + ';' + str(request.args.get('q_id'))
+        url = '/discuss/show/answers/' + str(q_id)
+        db.execute('insert into activity_log (user_id, activity, time, url) values (?, ?, ?, ?)',
+                 [user_id, activity, curtime, url])
         db.commit()
-        flash('New answer was successfully posted')
-
-    q_id = request.form['q_id']    
-    que2 = db.execute('SELECT * FROM question_discuss WHERE question_id > ? order by question_id desc ', [q_id])
-    preques = que2.fetchall()
 
     que = db.execute('SELECT * FROM question_discuss WHERE question_id = ?', [q_id])
     ques = que.fetchone()
 
     ans = db.execute('SELECT * FROM answer_discuss WHERE question_id = ? order by time desc', [q_id])
     entries = ans.fetchall()
+    user = session['username']
 
-    que3 = db.execute('SELECT * FROM question_discuss WHERE question_id < ? order by question_id desc', [q_id])
-    postques = que3.fetchall()
-    return render_template('show_entries_with.html', preques=preques, ques=ques, postques=postques, entries=entries)
+    user = db.execute('SELECT * FROM users WHERE user_id = ?', [ques[1]])
+    name = user.fetchone()
+    #return render_template('question_discuss.html', ques=ques, entries=entries, user=user)
+    #return render_template('question_discuss.html', ques=ques, entries=entries, name=name)
+    return redirect(url_for('.show_answers' , id = q_id))
