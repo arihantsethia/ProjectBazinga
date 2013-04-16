@@ -17,6 +17,14 @@ def get_db():
         top.sqlite_db = sqlite_db
     return top.sqlite_db 
 
+@profile_views.route('/notifications')
+def notifications():
+	db = get_db()
+	cur = db.execute('select activity_log.user_id, activity_log.activity, activity_log.time, username, following from activity_log inner join (follow inner join users on following=users.user_id) on activity_log.user_id=following where follower=?',[session['userId']])
+	activities = cur.fetchall()
+	length = len(activities)
+	return render_template('notifications.html', activities=activities, length=length)
+
 @profile_views.route('/follow_unfollow/<followingid>/<action>')
 def follow_unfollow(followingid,action):
 	db = get_db()

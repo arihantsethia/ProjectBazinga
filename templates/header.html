@@ -50,18 +50,7 @@
                 <li><a href="/code"><i class="icon-pencil icon-white"></i>&nbsp; Code</a></li>  
                 <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Discuss</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications (0)<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li class="nav-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
+                
               </ul>
               <!-- Login  -->
               <ul class="nav pull-right">
@@ -88,6 +77,9 @@
                   </div>
                 </li>
                 {% else %}
+                <li class="dropdown" id="nots">
+
+                </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -185,7 +177,17 @@
         })
       }(window.jQuery)
     </script>
-
+<script>
+$(document).ready(function(){
+$.ajax({
+  type: "GET",
+  url: "/notifications"
+}).done(function( msg ) {
+  //alert( "Data Saved: " + msg );
+  $("#nots").html(msg);
+});
+});
+</script>
     <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/textmate");
