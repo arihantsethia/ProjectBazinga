@@ -21,7 +21,6 @@
 	    	            <th>Points</th>
 	    	            <th>Difficulty</th>
 	    	            <th>Solved</th>
-	    	            <th>Discussion</th>
 	    	        </tr>
 	    	    </thead>
 	    	    {% for question in questions %}
@@ -31,7 +30,6 @@
 		    	            <td>{{ question.question_name }} </td>
 		    	            <td>{{ question.question_name }}</td>
 		    	            <td>{{ question.question_name }}</td>
-		    	            <td> <a href="{{ url_for('question_comments.show_question_comments', id=question.question_id) }}" >discuss</td>
 		    	        </tr>
 	    	    	</tbody>
 	    	    {% endfor %}
