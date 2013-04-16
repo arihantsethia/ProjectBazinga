@@ -3,9 +3,6 @@
 <div style="margin:100px">
 </div>
 <div class="container">
-	<div class="page-header">
-		<h2>{{ questions[0].contest_id }}</h2>
-	</div>
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#pane1" data-toggle="tab">Information</a></li>
@@ -13,8 +10,8 @@
 		  </ul>
 		<div class="tab-content">
 		    <div id="pane1" class="tab-pane active">
-		      <h4>The Markup</h4>
-		      <pre>Code here ...</pre>
+		      <h4>{{ contest.name }}</h4>
+		      <div>{{ contest.long_description|safe }}</div>
 		    </div>
 	    <div id="pane2" class="tab-pane">
 	    	<table class="table table-striped">
@@ -42,4 +39,5 @@
 	    </div>
 	  </div><!-- /.tab-content -->
 	</div><!-- /.tabbable --> 
+	<hr class="separator"/>
 {% endblock %}

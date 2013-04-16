@@ -1,13 +1,10 @@
-{% extends "header.html" %}
-{% block body %} 
+
 <div style="margin:100px">
 </div>
 <div class="container">
   <div class="page-header">
     <h2>Discussions</h2>
   </div>
-     <h3>Question # : {{ q_no }} </h3>
-     <p > <b>Description : </b> {{ question.question_string }} </p>
 
      <ul class=entries > 
         {% for text in entries %}
@@ -33,5 +30,3 @@
     {% endif %}
           
 
-
-{% endblock %}

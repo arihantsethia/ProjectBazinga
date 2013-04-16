@@ -40,6 +40,10 @@
 
 		<input class="btn " type="submit" id="submit" value="Submit">
 	</form>
+	<hr class="separator" />
+	<div id="comms" >
+
+	</div>
 	{% else %}
 	<p> Please login to sumbit the solution </p>
 	{% endif %}
@@ -67,6 +71,15 @@ var editor = ace.edit("editor");
 			console.log($("#code").text());
 			return true;
 		});
+
+		$.ajax({
+		  type: "GET",
+		  url: "{{ url_for('question_comments.show_question_comments', id=question.question_id) }}"
+		}).done(function( msg ) {
+		  //alert( "Data Saved: " + msg );
+		  $("#comms").html(msg);
+		});
+
     });
 
 </script>
