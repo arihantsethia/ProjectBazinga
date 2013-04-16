@@ -2,7 +2,7 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-asterisk icon-white"></i> ({{length}}) <b class="caret"></b></a>
 <ul class="dropdown-menu">
 {% for activity in activities %}
-<li><a href="#">{{activity.username}} {{activity.activity}} {{activity.time}}</a></li>
+<li><a href="{{ activity.url }}">{{activity.activity}}</a></li>
 <li class="divider"></li>
 {% endfor %}
 
