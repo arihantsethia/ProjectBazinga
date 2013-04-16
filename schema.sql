@@ -54,13 +54,6 @@ CREATE TABLE "answer_comments" (
 "time" DATETIME  NOT NULL
 );
 ;
-CREATE TABLE "question_discuss" (
-"question_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
-"user_id" INTEGER  NOT NULL,
-"question" TEXT  NOT NULL,
-"time" DATETIME  NOT NULL
-);
-;
 CREATE TABLE "answer_discuss" (
 "answer_id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
 "user_id" INTEGER  NOT NULL,
@@ -84,3 +77,9 @@ CREATE TABLE activity_log (
     "activity" TEXT NOT NULL,
     "time" DATETIME NOT NULL
 , "url" TEXT);
+CREATE TABLE question_discuss (
+    "question_id" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "question" TEXT NOT NULL,
+    "time" DATETIME NOT NULL
+, "title" TEXT);
