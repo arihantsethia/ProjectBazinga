@@ -47,8 +47,8 @@
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"> <a href="/home"><i class="icon-home icon-white"></i>&nbsp; Home</a></li>
-                <li><a href="/code"><i class="icon-pencil icon-white"></i>&nbsp; Organize Contest</a></li>  
+                <li class="active"> <a href="/admin"><i class="icon-home icon-white"></i>&nbsp; Home</a></li>
+                <li><a href="/admin/contest"><i class="icon-pencil icon-white"></i>&nbsp; Organize Contest</a></li>  
                 <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Contest</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
                 <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Questions</a></li>
@@ -58,7 +58,6 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.admin_username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-user"> </i> &nbsp;Profile</a></li>
                     <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;LeaderBoard</a></li>
                     <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
