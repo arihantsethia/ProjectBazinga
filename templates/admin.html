@@ -3,15 +3,16 @@
 {% if not session.admin_logged_in %}
 <div class="container">
   <h3>Login</h3>
-  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <hr />
   <div class="container">
     <div class="row">
       <div class="span4 offset4 well">
         <legend>Please Sign In</legend>
+        {% if error %}
               <div class="alert alert-error">
                   <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
               </div>
+        {% endif %}
         <form method="POST" action="/admin" accept-charset="UTF-8">
         <input type="text" id="username" class="span4" name="username" placeholder="Username">
         <input type="password" id="password" class="span4" name="password" placeholder="Password">
@@ -31,7 +32,7 @@
     <div id="myCarousel" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
-          <img src="static/images/bg1.jpg" alt="">
+          <img src="/static/images/bg1.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Example headline.</h1>
@@ -41,7 +42,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="static/images/bg2.jpg" alt="">
+          <img src="/static/images/bg2.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another example headline.</h1>
@@ -51,7 +52,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="static/images/bg3.jpg" alt="">
+          <img src="/static/images/bg3.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another another example headline.</h1>

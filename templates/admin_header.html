@@ -49,19 +49,16 @@
               <ul class="nav">
                 <li class="active"> <a href="/admin"><i class="icon-home icon-white"></i>&nbsp; Home</a></li>
                 <li><a href="/admin/contest"><i class="icon-pencil icon-white"></i>&nbsp; Organize Contest</a></li>  
-                <li><a href="/discuss"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Contest</a></li>
-                <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                <li><a href="{{ url_for("contest_views.submissions", index=0) }}"><i class="icon-question-sign icon-white"></i>&nbsp; Edit Questions</a></li>
+                <li><a href="/admin/contests"><i class="icon-road icon-white"></i>&nbsp; View Contests</a></li>
               </ul>
               <!-- Login  -->
               <ul class="nav pull-right">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown"> Welcome, {{ session.admin_username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{ url_for('profile_views.profile', path=session.userId) }}"><i class="icon-star"> </i> &nbsp;LeaderBoard</a></li>
                     <li><a href="#"><i class="icon-search"> </i> &nbsp; Search Users</a></li>
                     <li class="divider"></li>
-                    <li><a href="/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>
+                    <li><a href="/admin/logout"><i class="icon-off"></i> &nbsp; Signout</a></li>
                     <li><a href="/change"><i class="icon-cog"></i> &nbsp; Change Password</a></li>
                   </ul>
                   </ul>

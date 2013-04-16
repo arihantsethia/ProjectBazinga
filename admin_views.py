@@ -36,14 +36,24 @@ def admin_login():
 			session['admin_logged_in'] = True
 			session['admin_username'] = username
 			session['admin_userId'] = userid
-			message = "Admin Logged in succesfully"
+			message = "Logged in succesfully"
 		else:
 			error = 'Invalid username or password'
 			session['admin_logged_in'] = False
 			session['admin_username'] = ''
 			session['admin_userId'] = None		
 		return render_template('admin.html',error=error,message=message)
-	return render_template('admin.html')
+	return render_template('admin.html',error=error)
+
+@admin_views.route('/admin/logout')
+def logout() :
+	session['admin_logged_in'] = False
+	session['admin_username'] = ''
+	session['admin_userId'] = None
+	error = None
+	message = 'You are succesfully logged out!'		
+	return render_template('admin.html',error=error,message=message)
+
 
 @admin_views.route('/admin/contest',methods=['POST','GET'])
 def addcontest():
@@ -56,7 +66,7 @@ def addcontest():
 		date_string = request.form['end-date'] + ' ' +request.form['end-time']
 		end_time = datetime.strptime(date_string, format)
 		name = request.form['contestname']
-		company = 'User Company'
+		company = admin_user(session['admin_userId'])['organization']
 		shortdesc = request.form['shortdesc']
 		longdesc = request.form['longdesc']
 		owner = session['admin_userId']
@@ -85,11 +95,47 @@ def addcontest():
 				db.execute('INSERT into question_testcase ( question_id, test, answer, points, time_limit, space_limit ) VALUES (?, ?, ?, ?, ?, ?)',[question_id, test, answer, points, time_limit, space_limit])
 		db.commit()
 		message = "Congratulations "+" Your contest "+request.form['contestname']+" has been added "
-		return render_template('success.html' , message=message )
+		return render_template('admin.html' , message=message )
 	return render_template('organize.html')
 
-@admin_views.route('/admin/contest/edit',methods=['POST','GET'])
-def contest_edit() :
-	print session['admin_userId']
-	return render_template ('admin.html')
+@admin_views.route('/admin/contests',methods=['POST','GET'])
+def contest_view() :
+    db = get_db()
+    cur = db.execute('select * from contest where owner=?',[session['admin_userId']])
+    contest_list = cur.fetchall()
+    return render_template('edit_contest.html', contests=contest_list)
 
+@admin_views.route('/admin/contest/edit/<contest_id>',methods=['POST','GET'])
+def contest_details(contest_id):
+    db = get_db()
+    if request.method == 'POST' :
+    	db.execute('update contest set name=?, company=? ,start_time=? , end_time=? , short_description = ?, long_description = ?  where contest_id=?',[request.form['contestname'], request.form['company'],request.form['start-time'],request.form['end-time'],request.form['shortdesc'],request.form['longdesc'],request.form['contestno']])
+    	cur = db.execute('select * from contest where contest_id=?',request.form['contestno'])
+    	contest = cur.fetchone()
+    	cur = db.execute('select * from contest_questions where contest_id=?',[contest_id])
+    	questions = cur.fetchall()
+    	db.commit()
+    	message = request.form['contestname'] + " Updated Succesfully :)"
+    	return render_template('edit_contest_details.html',message=message, contest=contest , questions = questions)
+    cur = db.execute('select * from contest where contest_id=?',[contest_id])
+    contest = cur.fetchone()
+    cur = db.execute('select * from contest_questions where contest_id=?',[contest_id])
+    questions = cur.fetchall()
+    return render_template('edit_contest_details.html', contest=contest, questions = questions)
+
+@admin_views.route('/admin/question/edit/<question_id>',methods=['POST'])
+def question_details(question_id):
+    db = get_db()
+    db.execute('update contest_questions set question_name=?, question_string=? where question_id=?',[request.form['question_name'], request.form['question_desc'],request.form['question_id']])
+    cur = db.execute('select * from contest_questions where question_id=?',request.form['question_id'])
+    contest = cur.fetchone()
+    cur = db.execute('select * from contest_questions where contest_id=?',[contest['contest_id']])
+    questions = cur.fetchall()
+    message = request.form['question_name'] + " Updated Succesfully :)"
+    db.commit()
+    return render_template('edit_contest_details.html',message=message, contest=contest , questions = questions )
+def admin_user(admin_id):
+	db = get_db()
+	cur = db.execute('select * from admins where admin_id=?',[admin_id])
+	cur = cur.fetchone()
+	return cur
