@@ -10,18 +10,32 @@
 		</div>
 		<div class="pull-right">
 				{% if flag==1 %}
-				<a href="/profile/edit"><button class="btn btn-inverse">Edit Profile</button></a>
-				<a href="/profile/edit"><button class="btn btn-inverse">My Followers</button></a> 
-				<a href="/profile/edit"><button class="btn btn-inverse">Recent Activities</button></a>
+				<a href="/profile/edit"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp;Edit Profile</button></a>
+				<a href="/profile/follow/-1"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp; My Followers</button></a> 
+				<a href="/profile/edit"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp;Recent Activities</button></a>
 				{% endif %}
 				{% if flag==0 %}
-				<a href="/follow_unfollow/{{user.user_id}}/0"><button class="btn btn-primary">Unfollow</button></a>
+				<a href="/profile/follow/{{user.user_id}}"><button class="btn btn-inverse"> <i class="icon-search icon-white"> </i>&nbsp;Recent Activity</button></a>
+				<a href="#myModal" role="button" data-toggle="modal"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp; Unfollow</button></a>
 				{% endif %}
 				{% if flag==2 %}
-				<a href="/follow_unfollow/{{user.user_id}}/0"><button class="btn btn-primary">Follow</button></a>
+				<a href="/follow_unfollow/{{user.user_id}}/1"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp;Follow</button></a>
 				{% endif %}
 		</div>
 	</div>	
+	<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text">Are you sure you want to delete the user?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" type="submit" onclick="window.location.href='/follow_unfollow/{{user.user_id}}/0'">Unfollow</button>
+    </div>
+	</div>
 	<div class="form-horizontal" >
 	  <div class="control-group">
 	    <!-- Username -->

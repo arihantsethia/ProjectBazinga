@@ -21,12 +21,14 @@ def get_db():
 def follow_unfollow(followingid,action):
 	db = get_db()
 	if int(action):
-		cur = db.execute('insert into follow (follower,following) values (?,?)',[int(session['userId']),int(followingid)])
+		cur = db.execute('insert into follow (follower,following) values (?,?)',[session['userId'], followingid ])
 	else:
-		cur = db.execute('delete from follow where follower=? and following=?',[int(session['userId']),int(followingid)])
-	string = '/profile/'+str(followingid)
+		cur = db.execute('delete from follow where follower=? and following=?',[session['userId'],int(followingid)])
 	db.commit()
+	string = '/profile/'+str(followingid)
 	return redirect(string)
+
+
 
 #127.0.0.1:5000/profile/<number> shows the profile of the person with uid=<number>
 @profile_views.route('/profile/<path>')
@@ -57,20 +59,35 @@ def profile_edit():
 @profile_views.route('/profile/editing',methods=['POST'])
 def editing():
     db = get_db()
-    db.execute('update users set name=?, age=? where user_id=?',[request.form['name'], request.form['age'],session['userId']])
+    db.execute('update users set username=?, name=?, email=?, contact=?, website=?, profession=?, organization=?, resume=?, picture=? where user_id=?',[request.form['username'], request.form['name'],request.form['email'],request.form['contact'],request.form['website'],request.form['profession'],request.form['organization'],request.form['resume'],request.form['picture'],session['userId']])
     db.commit()
     string = '/profile/'+str(session['userId'])
     return redirect(string)
 
 #shows you all the followers and their correct submissions
-@profile_views.route('/profile/follow')
-def follow():
-	db = get_db();
-	cur = db.execute('select following from follow where follower=?',[session['userId']])
+@profile_views.route('/profile/follow/<path>')
+def follow(path):
+	db = get_db()
+	if int(path)==-1:
+		cur = db.execute('select follow.following, users.username, users.name from follow inner join users on follow.following=users.user_id where follow.follower=?',[session['userId']])
+	else:
+		cur = db.execute('select follow.following, users.username, users.name from follow inner join users on follow.following=users.user_id where follow.follower=? and follow.following=?',[session['userId'],int(path)])
 	following = cur.fetchall()
-  	info = []
+	info = []
 	for temp in following:
 		db = get_db()
-		cur = db.execute('select * from history where status=? and user_id=? order by rowid desc',['Accepted',temp[0]])
-		info = info + cur.fetchall()		
+		cur = db.execute('select * from submissions where user_id=? order by submission_time desc',[temp[0]])
+		info = info + cur.fetchall()
 	return render_template('follow.html',following=following,info=info)
+	
+@profile_views.route('/search')
+def search():
+	name = request.args.get("search")
+	db = get_db()
+	cur = db.execute('select * from users where name LIKE ?',['%'+name+'%'])
+	names = cur.fetchall()
+	count = len(names)
+	return render_template('search_results.html',names=names, count=count)
+
+
+
