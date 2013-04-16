@@ -1,10 +1,17 @@
-# profile_views.py : Handles the views for Profile Module
+# Profile Module
+# Incharge 						: Siddharth Ancha
+# Features Handled by this module : Profile Display
+# 								  Profile Edit
+# 								  Follow/Unfollow
+# 								  Diplay followees and thier info
+# 								  Notifications
+# 								  User search
+
 
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack,Blueprint
 from time import gmtime, strftime
-import bw
 
 profile_views = Blueprint('profile_views',__name__)
 
@@ -17,7 +24,7 @@ def get_db():
         top.sqlite_db = sqlite_db
     return top.sqlite_db 
 
-@profile_views.route('/notifications')
+@profile_views.route('/notifications')		# Handles Notifications  - Notifications button in Header Toolbar
 def notifications():
 	db = get_db()
 	cur = db.execute('select activity_log.user_id, activity, url, time, username, following from activity_log inner join (follow inner join users on following=users.user_id) on activity_log.user_id=following where follower=?',[session['userId']])
@@ -26,7 +33,7 @@ def notifications():
 	return render_template('notifications.html', activities=activities, length=length)
 
 @profile_views.route('/follow_unfollow/<followingid>/<action>')
-def follow_unfollow(followingid,action):
+def follow_unfollow(followingid,action):	#Provides buttons and actions for Follow and Unfollow
 	db = get_db()
 	if int(action):
 		cur = db.execute('insert into follow (follower,following) values (?,?)',[session['userId'], followingid ])
@@ -39,7 +46,7 @@ def follow_unfollow(followingid,action):
 
 
 #127.0.0.1:5000/profile/<number> shows the profile of the person with uid=<number>
-@profile_views.route('/profile/<path>')
+@profile_views.route('/profile/<path>')		#To display profile. Inputs id of user and renders profile page of that particular user
 def profile(path):
     db = get_db()
     cur = db.execute('select * from users where user_id=?',[path])
@@ -55,7 +62,7 @@ def profile(path):
     return render_template('profile.html', user=user, flag=flag)
 
 #profile edit page - you can edit your profile
-@profile_views.route('/profile/edit')
+@profile_views.route('/profile/edit')		#To edit user profile
 def profile_edit():
     db = get_db()
     cur = db.execute('select * from users where user_id=?',[session['userId']])
@@ -64,7 +71,7 @@ def profile_edit():
 
 
 #intermediary buffer page - while the edit changes are being saved, this redirects to profile page
-@profile_views.route('/profile/editing',methods=['POST'])
+@profile_views.route('/profile/editing',methods=['POST'])	#intermediary stage of editing in user profile edit
 def editing():
     db = get_db()
     db.execute('update users set username=?, name=?, email=?, contact=?, website=?, profession=?, organization=?, resume=?, picture=? where user_id=?',[request.form['username'], request.form['name'],request.form['email'],request.form['contact'],request.form['website'],request.form['profession'],request.form['organization'],request.form['resume'],request.form['picture'],session['userId']])
@@ -73,7 +80,7 @@ def editing():
     return redirect(string)
 
 #shows you all the followers and their correct submissions
-@profile_views.route('/profile/follow/<path>')
+@profile_views.route('/profile/follow/<path>')		# to display the users being followed and all their solved/partially solved problems
 def follow(path):
 	db = get_db()
 	if int(path)==-1:
@@ -84,18 +91,16 @@ def follow(path):
 	info = []
 	for temp in following:
 		db = get_db()
-		cur = db.execute('select * from submissions where user_id=? order by submission_time desc',[temp[0]])
+		cur = db.execute('select * from submissions inner join contest_questions on submissions.question_id=contest_questions.question_id where user_id=? and points>0',[temp[0]])
+		#cur = db.execute('select * from submissions where user_id=? order by submission_time desc',[temp[0]])
 		info = info + cur.fetchall()
 	return render_template('follow.html',following=following,info=info)
 	
 @profile_views.route('/search')
-def search():
+def search():			#Implements the 'LIKE' search feature of SQL on user-names to find and befriend users
 	name = request.args.get("search")
 	db = get_db()
 	cur = db.execute('select * from users where name LIKE ?',['%'+name+'%'])
 	names = cur.fetchall()
 	count = len(names)
 	return render_template('search_results.html',names=names, count=count)
-
-
-
