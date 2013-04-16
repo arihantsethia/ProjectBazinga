@@ -21,9 +21,7 @@ CREATE TABLE "users" (
     "contact" TEXT,
     "profession" TEXT,
     "organization" TEXT,
-    "website" TEXT,    
-    "picture" BLOB,
-    "resume" BLOB
+    "website" TEXT
 );
 ;
 CREATE TABLE "admins" (
