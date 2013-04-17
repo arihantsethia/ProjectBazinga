@@ -1,0 +1,32 @@
+
+<div style="margin:100px">
+</div>
+<div class="container">
+  <div class="page-header">
+    <h2>Discussions</h2>
+  </div>
+
+     <ul class=entries > 
+        {% for text in entries %}
+          <li>
+              user: {{ text.username }} -- {{ text.comment }}              
+          </li>
+        {% endfor %}
+     </ul>  
+
+
+
+     {% if session.logged_in %}
+     <form action="{{ url_for('.add_question_comment') }}" method='GET'  >
+      <div class="controls">
+        <legend class=""><h4>Comment on this Question</h4></legend>
+            <input type="text" name="title" placeholder="Type Your comment Here" class="container"><br><br>
+    </div>
+      <input type='text' name='q_id' value={{ q_no }} style='display:none' />
+      <div class="controls">
+      <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right">Comment</button>
+    </div>
+    </form>
+    {% endif %}
+          
+

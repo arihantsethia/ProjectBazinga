@@ -1,0 +1,64 @@
+{% extends "header.html" %}
+{% block body %} 
+<div style="margin:100px">
+</div>
+<div class="container">
+	<div class="page-header">
+		<h2>{{ contest.name }}</h2>
+	</div>
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+		    <li class="active"><a href="#pane1" data-toggle="tab">Information</a></li>
+		    <li><a href="#pane2" data-toggle="tab">Problems</a></li>
+		  </ul>
+		<div class="tab-content">
+		    <div id="pane1" class="tab-pane active">
+		      <h4>{{ contest.name }}</h4>
+		      <div>{{ contest.long_description|safe }}</div>
+		    </div>
+	    <div id="pane2" class="tab-pane">
+	    	<div class=" row ">
+	    	<table class="table table-striped span8">
+	    	    <thead>	    	    	
+	    	    	<tr><td colspan=2><h4>Questions</h4></td></tr>
+	    	        <tr>
+	    	            <th>Question</th>
+	    	            <th>Points</th>
+	    	            <th>Difficulty</th>
+	    	            <th>Solved</th>
+	    	        </tr>
+	    	    </thead>
+	    	    {% for question in questions %}
+	    	    	<tbody>
+		    	        <tr>
+		    	            <td><a href="{{ url_for('.show_question', id=question.question_id) }}" >{{ question.question_name }}</td>
+		    	            <td>{{ question.question_name }} </td>
+		    	            <td>{{ question.question_name }}</td>
+		    	            <td>{{ question.question_name }}</td>
+		    	        </tr>
+	    	    	</tbody>
+	    	    {% endfor %}
+	    	</table>
+	    	
+	    		<div id="score" class="span4">
+
+	    		</div>
+	    	</div>
+	    </div>
+	  </div><!-- /.tab-content -->
+	</div><!-- /.tabbable --> 
+	<hr class="separator"/>
+
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script>
+$(document).ready(function(){
+	$.ajax({
+	  type: "GET",
+	  url: "{{ url_for('contest_views.show_scoreboard', id=contest.contest_id) }}"
+	}).done(function( msg ) {
+	  //alert( "Data Saved: " + msg );
+	  $("#score").html(msg);
+	});
+});
+</script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+{% block body %} 
+<div style="margin:100px">
+</div>
+<div class = "container" >
+	<div class="page-header">
+		<h2>Friends</h2>
+	</div>
+{% for i in following %}
+	<h3><a href="/profile/{{i.following}}">{{i.username}}</a> ({{i.name}})</h3>
+		<table class="table table-striped">
+  			<th><td>Problem</td><td>Language</td><td>Points</td><td>Submission Time</td></th>
+  			{% for j in info %}
+  			{% if j.user_id == i.following %}
+  			<tr><td></td><td><a href="{{ url_for('contest_views.show_question', id=j.question_id) }}">{{j.question_name}}</a></td><td>{{j.lang}}</td><td>{{j.points}}</td><td>{{j.submission_time}}</td>
+  			{% endif %}
+  			{% endfor %}
+		</table>		
+	<br><br><br>
+{% endfor %}
+</div>
+{% endblock %}

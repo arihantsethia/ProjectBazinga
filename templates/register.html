@@ -1,0 +1,191 @@
+{% extends "header.html" %}
+{% block body %}  
+<div style="margin:100px">
+</div>
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<div class="container marketing">
+  <form class="form-horizontal" action='/register' method="POST" onsubmit="return validateform();" name="register" id="user-register">
+    <fieldset>
+      <div id="legend">
+        <legend class=""><h2>Register</h2></legend>
+      </div>
+      <div class="control-group">
+        <!-- Username -->
+        <label class="control-label"  for="username">Username</label>
+        <div class="controls">
+          <input type="text" id="username" name="username" placeholder="" value="" class="input-xlarge">
+          <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <!-- Username -->
+        <label class="control-label"  for="name">Full Name</label>
+        <div class="controls">
+          <input type="text" id="name" name="name" placeholder="" class="input-xlarge">
+          <p class="help-block">Please provide your Full Name</p>
+        </div>
+      </div>
+   
+      <div class="control-group">
+        <!-- E-mail -->
+        <label class="control-label" for="email">E-mail</label>
+        <div class="controls">
+          <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+          <p class="help-block">Please provide your E-mail</p>
+        </div>
+      </div>
+   
+      <div class="control-group">
+        <!-- Password-->
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+          <p class="help-block">Password should be at least 4 characters</p>
+        </div>
+      </div>
+   
+      <div class="control-group">
+        <!-- Password -->
+        <label class="control-label"  for="password_confirm">Confirm Password </label>
+        <div class="controls">
+          <input type="password" id="cofpassword" name="cofpassword" placeholder="" class="input-xlarge">
+          <p class="help-block">Please confirm password</p>
+        </div>
+      </div>   
+      <div class="control-group">
+        <!-- Button -->
+        <div class="controls">
+          <button class="btn btn-success" type="submit">Register</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+  <!------------------------------------------------------------------ -->
+<!--<div>
+<form action="adduser" onsubmit="return validateform();" accept-charset="UTF-8" method="post" name="register" id="user-register" enctype="multipart/form-data">
+  <div><h3>Create a new account.</h3><div class="form-item" id="edit-name-wrapper">
+    <p>
+      <label for="edit-name">Username: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="text" maxlength="60" name="username" id="edit-name" size="60" value="" class="form-text required" />
+    </p>
+    <p>
+      <label for="edit-password">Password: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="password" maxlength="60" name="password" id="edit-password" size="60" value="" class="form-text required" />
+    </p>
+<div class="description"></div>
+</div>
+<div class="form-item" id="user-cofpassword">
+    <p>
+      <label for="user-cofpassword">Confirm Password: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="password" maxlength="128" name="cofpassword" id="user-cofpassword" size="60" value="" class="form-text required" />
+    </p>
+  </div>
+  <div class="form-item" id="edit-mail-wrapper">
+    <p>
+      <label for="edit-mail">E-mail address: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="text" maxlength="64" name="mail" id="edit-mail" size="60" value="" class="form-text required" />
+    </p>
+<div class="description"></div>
+
+  </div>
+  <div class="form-item" id="edit-user-name-wrapper">
+    <p>
+      <label for="edit-user-name">Your Name: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="text" maxlength="128" name="name" id="edit-user-name" size="60" value="" class="form-text required" />
+    </p>
+  </div>
+  </div>
+
+  <div class="form-item" id="edit-user-phno-wrapper">
+    <p>
+      <label for="edit-user-phno">Your Contact Number: <span class="form-required" title="This field is required.">*<br />
+      </span></label>
+      <input type="text" maxlength="15" name="user_phno" id="edit-user-phno" size="60" value="" class="form-text required" />
+    </p>
+  </div>
+  <div class="form-item" id="edit-user-url-wrapper">
+    <p>
+      <label for="edit-user-url">Your Website or Blog:<br />
+      </label>
+      <input type="text" maxlength="128" name="user_url" id="edit-user-url" size="60" value="" class="form-text" />
+    </p>
+    <div class="description">
+      <p>Your url should begin with http://</p>
+    </div>
+  </div>
+  <div class="form-item">
+    <p>
+      <label>Are you a Student or a Professional: <span class="form-required" title="This field is required.">*</span></label>
+    </p>
+    <div class="form-radios"><div class="form-item" id="edit-user-type-Student-wrapper">
+      <label class="option" for="edit-user-type-Student"><input type="radio" id="edit-user-type-Student" name="user_type" value="Student"   class="form-radio" /> Student</label>
+      </div>
+      <div class="form-item" id="edit-user-type-Professional-wrapper">
+        <label class="option" for="edit-user-type-Professional"><input type="radio" id="edit-user-type-Professional" name="user_type" value="Professional"   class="form-radio" /> Professional</label>
+        </div>
+    </div>
+  </div>
+  <div class="form-item" id="edit-new-user-institution-wrapper">
+    <p>
+      <label for="edit-new-user-institution">Enter new institution name:<br />
+      </label>
+      <input type="text" maxlength="128" name="new_user_institution" id="edit-new-user-institution" size="60" value="" class="form-text" />
+    </p>
+  </div>
+  <div class="form-item" id="edit-user-linked-in-wrapper">
+    <p>
+      <label for="edit-user-linked-in">Your Linkedin URL:<br />
+      </label>
+      <input type="text" maxlength="256" name="user_linked_in" id="edit-user-linked-in" size="60" value="" class="form-text" />
+    </p>
+    <div class="description">
+      <p>Your linkedin url should begin with http://</p>
+    </div>
+  </div>
+  <div class="form-item" id="edit-user-avatar-wrapper">
+    <p>
+      <label for="edit-user-avatar">Upload picture of yourself:<br />
+      </label>
+      <input type="file" name="avatar"  class="form-file" id="avatar" size="44" />
+    </p>
+    <div class="description">
+      <p>Upload files of type jpeg, jpg, gif only.Max size allowed is 150KB</p>
+    </div>
+  </div>
+  <div class="form-item" id="edit-user-resume-wrapper">
+    <p>
+      <label for="edit-user-resume">Upload your resume:<br />
+      </label>
+      <input type="file" name="files[user_resume]"  class="form-file" id="edit-user-resume" size="44" />
+    </p>
+    <div class="description">
+      <p>Upload files of type txt, doc or pdf only.Max size allowed is 150KB</p>
+    </div>
+  </div>
+  <div class="form-checkboxes">
+    <div class="form-item" id="edit-user-email-available-y-wrapper">
+      <p>
+        <label class="option" for="edit-user-email-available-y">
+          <input name="user_email_available[y]" type="checkbox" class="form-checkbox" id="edit-user-email-available-y" value="y" /> 
+          Subscribe to CodeChef newsletter and important announcements (max 2 per month)</label>
+      </p>
+    </div>
+  </div> 
+  <p>
+    <input type="submit" name="op" id="edit-submit" value="Create new account"  class="form-submit" />
+  </p>
+</form>
+</div>-->
+    
+
+{% endblock %}
+

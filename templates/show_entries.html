@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+{% block body %}  
+<div style="margin:100px">
+</div>
+<div class="container">
+  <div class="page-header">
+    <h2>Discussions</h2>
+  </div> 
+  <div> 
+   {% if session.logged_in %}
+   <form action="{{ url_for('.add_question') }}" method='GET' >
+    <div class="controls">
+        <legend class=""><h4>Ask a Question</h4></legend>
+            <input type="text" name="title" placeholder="Type Your Question Title Here" class="container"><br><br>
+             <textarea id="message" name="comment" class="container" placeholder="Type Your Question Description Here" rows="3"></textarea>
+    </div>
+    <div class="controls">
+      <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right">Ask Question</button>
+    </div>
+   </form>   
+  {% endif %}
+  </div>
+  <br>
+  <hr> 
+  <legend ><h4>See Questions</h4></legend>
+  {% for text in entries %}
+    <div >
+        <a href="{{ url_for('.show_answers' , id = text.question_id) }}"><h3>{{text.title}}</h3></a>
+        <p>{{text.description}}</p>
+      <div>
+        <span class="badge badge-success">Posted on {{ text.time }}</span><div class="pull-right"><a href="/profile/{{text.user_id}}"><span class="label">Asked By : {{text.username}} </span></a></div>
+      </div>
+    </div> 
+    <hr>
+    {% endfor %}    
+  </div> 
+</div>
+
+{% endblock %}
+

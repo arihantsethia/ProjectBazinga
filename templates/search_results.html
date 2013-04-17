@@ -1,0 +1,16 @@
+{% extends "header.html" %}
+{% block body %}
+<div style="padding:50px"></div>
+<div class = "container" >
+	<div class="page-header">
+		<h2>Search Results</h2>
+</div>
+{% if count==0 %}
+	There are no results to display.
+{% else %}
+	{% for name in names %}
+	<h4><a href="/profile/{{name.user_id}}">{{name.name}}</a>  ({{name.username}})</h4>
+	{% endfor %}
+{% endif %}
+<br><br><br><br><br><br>
+{% endblock %}
