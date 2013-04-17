@@ -1,14 +1,10 @@
-<script>
-var x=document.getElementById("first")
-x.innerHTML=Math.floor((Math.random()*10)+1);
-var y=document.getElementById("second");
-y.innerHTML=Math.floor((Math.random()*10)+1);	
 function validateform()
 {
+
 	var username=document.forms["register"]["username"].value;
 	var password=document.forms["register"]["password"].value;
 	var cofpassword=document.forms["register"]["cofpassword"].value;
-	var mail=document.forms["register"]["mail"].value;
+	var mail=document.forms["register"]["email"].value;
 	var name=document.forms["register"]["name"].value;
 	var atpos=mail.indexOf("@");
 	var dotpos=mail.lastIndexOf(".");
@@ -63,20 +59,20 @@ function validateform()
 	
 	if (mail==null || mail=="")
 	{
-		register.mail.style.borderColor='red';
-		register.mail.focus();
+		register.email.style.borderColor='red';
+		register.email.focus();
 		flag=1;
 	}
 	else
 	{
 		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=mail.length)
   		{
-  			register.mail.style.borderColor='red';
+  			register.email.style.borderColor='red';
   			flag=1;
   		}
   		else
   		{
-			register.mail.style.borderColor='green';
+			register.email.style.borderColor='green';
 		}
 	}
 	
@@ -96,4 +92,4 @@ function validateform()
   		return false;
   	}
 }
-</script>
+

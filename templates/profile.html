@@ -5,13 +5,13 @@
 <div class = "container" >	
 	<div class="page-header row-fluid ">	
 		<div class="pull-left" >	
-			<h2 style="align:bottom"><img class="img-polaroid " src="../static/images/arihant.png" />
+			<h2 style="align:bottom"><img class="img-polaroid " src="{{ url_for('static', filename= 'files/%s.jpg' % userId) }}" height="100" width="100"/>
 			&nbsp;{{ user.username }} | {{ user.name }}</h2>
 		</div>
 		<div class="pull-right">
 				{% if flag==1 %}
 				<a href="/profile/edit"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp;Edit Profile</button></a>
-				<a href="/profile/follow/-1"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp; Followers</button></a> 
+				<a href="/profile/follow/-1"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp; My Followers</button></a> 
 				<a href="/profile/edit"><button class="btn btn-inverse"><i class="icon-search icon-white"> </i>&nbsp;Recent Activities</button></a>
 				{% endif %}
 				{% if flag==0 %}
@@ -41,7 +41,7 @@
 	    <!-- Username -->
 	    <label class="control-label"  for="username">Username</label>
 	    <div class="controls">
-	      <input type="text" id="username" name="username"  value="{{ user.username }}" class="input-xlarge ">
+	      <input type="text" id="username" name="username"  value="{{ user.username }}" class="input-xlarge " readonly>
 	    </div>
 	  </div>
 
@@ -49,7 +49,7 @@
 	    <!-- Fullname -->
 	    <label class="control-label"  for="name">Full Name</label>
 	    <div class="controls">
-	      <input type="text" id="name" name="name"  value="{{ user.name }}" class="input-xlarge">
+	      <input type="text" id="name" name="name"  value="{{ user.name }}" class="input-xlarge" readonly>
 	    </div>
 	  </div>
 
@@ -57,7 +57,7 @@
 	    <!-- E-mail -->
 	    <label class="control-label" for="email">E-mail</label>
 	    <div class="controls">
-	      <input type="text" id="email" name="email"  value="{{ user.email }}" class="input-xlarge">
+	      <input type="text" id="email" name="email"  value="{{ user.email }}" class="input-xlarge" readonly>
 	    </div>
 	  </div> 
 
@@ -66,7 +66,7 @@
 	    <!-- Contact -->
 	    <label class="control-label" for="contact">Contact</label>
 	    <div class="controls">
-	      <input type="text" id="contact" name="contact"  value="{{ user.contact }}" class="input-xlarge">
+	      <input type="text" id="contact" name="contact"  value="{{ user.contact }}" class="input-xlarge" readonly>
 	    </div>
 	  </div> 
 
@@ -74,7 +74,7 @@
 	    <!-- Website -->
 	    <label class="control-label" for="website">Website</label>
 	    <div class="controls">
-	      <input type="text" id="webiste" name="website"  value="{{ user.website }}" class="input-xlarge">
+	      <input type="text" id="webiste" name="website"  value="{{ user.website }}" class="input-xlarge" readonly>
 	    </div>
 	  </div> 
 
@@ -82,7 +82,7 @@
 	    <!-- Profession -->
 	    <label class="control-label" for="website">Profession</label>
 	    <div class="controls">
-	      <input type="text" id="profession" name="profession"  value="{{ user.profession }}" class="input-xlarge">
+	      <input type="text" id="profession" name="profession"  value="{{ user.profession }}" class="input-xlarge" readonly>
 	    </div>
 	  </div> 
 
@@ -90,7 +90,7 @@
 	    <!-- Organization -->
 	    <label class="control-label" for="organization">Organization</label>
 	    <div class="controls">
-	      <input type="text" id="organization" name="organization"  value="{{ user.organization }}" class="input-xlarge">
+	      <input type="text" id="organization" name="organization"  value="{{ user.organization }}" class="input-xlarge" readonly>
 	    </div>
 	  </div> 
 
@@ -98,17 +98,13 @@
 	    <!-- Resume -->
 	    <label class="control-label" for="resume">Resume</label>
 	    <div class="controls">
-	      <input type="text" id="resume" name="resume"  value="{{ user.resume}}" class="input-xlarge">
+	      <a href="{{ url_for('static', filename= 'files/%s.pdf' % userId) }}">Resume</a>
 	    </div>
 	  </div> 
-
-	  <div class="control-group">
-	    <!-- Profile Picture -->
-	    <label class="control-label" for="picture">Picture</label>
-	    <div class="controls">
-	      <input type="text" id="picture" name="picture"  value="{{ user.picture}}" class="input-xlarge">
-	    </div>
-	  </div> 
+  
 	</div>
+
 </div>
+
+
 {% endblock %}

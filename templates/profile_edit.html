@@ -3,7 +3,7 @@
 <div style="margin:100px">
 </div>
 <div class="container marketing">
-  <form class="form-horizontal" action="{{ url_for('.editing') }}" method="POST">
+  <form class="form-horizontal" action="{{ url_for('.editing') }}" method="POST" enctype="multipart/form-data">
     <fieldset>
       <div id="legend">
         <legend class=""><h2>Edit Profile</h2></legend>
@@ -69,7 +69,7 @@
         <!-- Resume -->
         <label class="control-label" for="resume">Resume</label>
         <div class="controls">
-          <input type="text" id="resume" name="resume"  value="{{ user.resume}}" class="input-xlarge">
+          <input type="file" id="resume" name="resume"  class="input-xlarge">
         </div>
       </div> 
 
@@ -77,7 +77,7 @@
         <!-- Profile Picture -->
         <label class="control-label" for="picture">Picture</label>
         <div class="controls">
-          <input type="text" id="picture" name="picture"  value="{{ user.picture}}" class="input-xlarge">
+          <input type="file" id="picture" name="picture" class="input-xlarge">
         </div>
       </div> 
 

@@ -19,7 +19,7 @@ def get_db():
 		top.sqlite_db = sqlite_db
 	return top.sqlite_db
 
-
+#function for the admin to log in
 @admin_views.route('/admin', methods=['GET', 'POST'])
 def admin_login():
 	error = None 
@@ -29,9 +29,9 @@ def admin_login():
 		db = get_db()
 		cur = db.execute('SELECT * from admins WHERE username=?',[request.form['username']])
 		row = cur.fetchone()	
-		if row[2]==request.form['password']:				
-			userid=row[0]
-			username=row[1]
+		if row != None and row['password']==request.form['password']:				#check if the username and password is correct
+			userid=row['admin_id']
+			username=row['username']
 			session['admin_logged_in'] = True
 			session['admin_username'] = username
 			session['admin_userId'] = userid
@@ -41,9 +41,10 @@ def admin_login():
 			session['admin_logged_in'] = False
 			session['admin_username'] = ''
 			session['admin_userId'] = None		
-		return render_template('admin.html',error=error,message=message)
+		return render_template('admin.html',error=error,message=message)	#open the admin.html page
 	return render_template('admin.html',error=error)
 
+#function for the admin to log out
 @admin_views.route('/admin/logout')
 def logout() :
 	session['admin_logged_in'] = False
@@ -53,7 +54,7 @@ def logout() :
 	message = 'You are succesfully logged out!'		
 	return render_template('admin.html',error=error,message=message)
 
-
+#function for adding a new contest by the user
 @admin_views.route('/admin/contest',methods=['POST','GET'])
 def addcontest():
 	if request.method == 'POST' :
@@ -97,6 +98,7 @@ def addcontest():
 		return render_template('admin.html' , message=message )
 	return render_template('organize.html')
 
+#function for viewing contest names of the admin so that he/she can edit it
 @admin_views.route('/admin/contests',methods=['POST','GET'])
 def contest_view() :
     db = get_db()
@@ -104,11 +106,12 @@ def contest_view() :
     contest_list = cur.fetchall()
     return render_template('edit_contest.html', contests=contest_list)
 
+#function for editing contest details of the admin
 @admin_views.route('/admin/contest/edit/<contest_id>',methods=['POST','GET'])
 def contest_details(contest_id):
     db = get_db()
     if request.method == 'POST' :
-    	db.execute('update contest set name=?, company=? ,start_time=? , end_time=? , short_description = ?, long_description = ?  where contest_id=?',[request.form['contestname'], request.form['company'],request.form['start-time'],request.form['end-time'],request.form['shortdesc'],request.form['longdesc'],request.form['contestno']])
+    	db.execute('update contest set name=?, organization=? ,start_time=? , end_time=? , short_description = ?, long_description = ?  where contest_id=?',[request.form['contestname'], request.form['company'],request.form['start-time'],request.form['end-time'],request.form['shortdesc'],request.form['longdesc'],request.form['contestno']])
     	cur = db.execute('select * from contest where contest_id=?',request.form['contestno'])
     	contest = cur.fetchone()
     	cur = db.execute('select * from contest_questions where contest_id=?',[contest_id])
@@ -122,6 +125,7 @@ def contest_details(contest_id):
     questions = cur.fetchall()
     return render_template('edit_contest_details.html', contest=contest, questions = questions)
 
+#function for editing question details of a contest of the admin 
 @admin_views.route('/admin/question/edit/<question_id>',methods=['POST'])
 def question_details(question_id):
     db = get_db()
@@ -133,6 +137,8 @@ def question_details(question_id):
     message = request.form['question_name'] + " Updated Succesfully :)"
     db.commit()
     return render_template('edit_contest_details.html',message=message, contest=contest , questions = questions )
+
+#function for getting admin information when the admin_id is given
 def admin_user(admin_id):
 	db = get_db()
 	cur = db.execute('select * from admins where admin_id=?',[admin_id])

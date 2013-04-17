@@ -13,6 +13,10 @@ def index():
 def home():
 	return render_template("index.html")
 
+@views.route('/about')
+def about():
+	return render_template("about.html")
+
 @views.route('/contact', methods=['GET', 'POST'])
 def contact():
 	if request.method == 'POST':

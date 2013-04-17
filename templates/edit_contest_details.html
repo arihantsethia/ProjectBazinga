@@ -43,22 +43,16 @@
                   </div>   
                       <input type="hidden" id="contestno" name="contestno"  value="{{ contest.contest_id}}" class="input-xlarge">
                   <div class="control-group">
-                    <!-- Username -->
+                    <!-- Contest Name -->
                     <label class="control-label"  for="contestname">Contest Name</label>
                     <div class="controls">
                       <input type="text" id="contestname" name="contestname"  value="{{ contest.name}}" class="input-xlarge">  
                     </div>
                   </div>
-                  <div class="control-group">
-                    <!-- Username -->
-                    <label class="control-label"  for="company">Company</label>
-                    <div class="controls">
-                      <input type="text" id="company" name="company" value="{{ contest.company}}" class="input-xlarge">
-                    </div>
-                  </div>
+                  <input type="hidden" id="company" name="company" value="{{ contest.organization }}" class="input-xlarge">
                
                   <div class="control-group">
-                    <!-- E-mail -->
+                    <!-- Start Time -->
                     <label class="control-label" for="start-time">Start Time</label>
                     <div class="controls">
                       <input type="datetime" id="start-time" name="start-time" value="{{ contest.start_time}}" class="input-xlarge">
@@ -67,7 +61,7 @@
                   </div>
                
                   <div class="control-group">
-                    <!-- Password-->
+                    <!-- End Time-->
                     <label class="control-label" for="end-time">End Time</label>
                     <div class="controls">
                       <input type="datetime" id="end-time" name="end-time" value="{{ contest.end_time}}" class="input-xlarge">
@@ -76,7 +70,7 @@
                   </div>
                
                   <div class="control-group">
-                    <!-- Password -->
+                    <!-- Short Description -->
                     <label class="control-label"  for="shortdesc">Short Description </label>
                     <div class="controls">
                       <input type="text" id="shortdesc" name="shortdesc" value="{{ contest.short_description}}" class="input-xlarge">
@@ -85,7 +79,7 @@
                   </div>
 
             <div class="control-group">
-                    <!-- Password -->
+                    <!-- Long Description -->
                     <label class="control-label"  for="longdesc">Long Description </label>
                     <div class="controls">
                       <input type="text" id="longdesc" name="longdesc" value="{{ contest.long_description}}" class="input-xlarge">

@@ -7,11 +7,26 @@
 # 								  Notifications
 # 								  User search
 
-
+import commands
+import cgi, cgitb
+import cgitb; cgitb.enable()
+import os
+from werkzeug import secure_filename
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack,Blueprint
 from time import gmtime, strftime
+
+UPLOAD_FOLDER = 'static/files'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+try: # Windows needs stdio set for binary mode.
+    import msvcrt
+    msvcrt.setmode (0, os.O_BINARY) # stdin  = 0
+    msvcrt.setmode (1, os.O_BINARY) # stdout = 1
+except ImportError:
+	print "No Error"
 
 profile_views = Blueprint('profile_views',__name__)
 
@@ -22,7 +37,11 @@ def get_db():
         sqlite_db = sqlite3.connect('database.db')
         sqlite_db.row_factory = sqlite3.Row
         top.sqlite_db = sqlite_db
-    return top.sqlite_db 
+    return top.sqlite_db
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS 
 
 @profile_views.route('/notifications')		# Handles Notifications  - Notifications button in Header Toolbar
 def notifications():
@@ -71,13 +90,23 @@ def profile_edit():
 
 
 #intermediary buffer page - while the edit changes are being saved, this redirects to profile page
-@profile_views.route('/profile/editing',methods=['POST'])	#intermediary stage of editing in user profile edit
+@profile_views.route('/profile/editing',methods=['POST'])    #editing profile function
 def editing():
     db = get_db()
-    db.execute('update users set username=?, name=?, email=?, contact=?, website=?, profession=?, organization=?, resume=?, picture=? where user_id=?',[request.form['username'], request.form['name'],request.form['email'],request.form['contact'],request.form['website'],request.form['profession'],request.form['organization'],request.form['resume'],request.form['picture'],session['userId']])
+    db.execute('update users set username=?, name=?, email=?, contact=?, website=?, profession=?, organization=? where user_id=?',[request.form['username'], request.form['name'],request.form['email'],request.form['contact'],request.form['website'],request.form['profession'], request.form['organization'], session['userId']])
     db.commit()
-    string = '/profile/'+str(session['userId'])
-    return redirect(string)
+    string ='/profile/'+str(session['userId'])
+    if request.method == 'POST':
+        file = request.files['picture']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(session['userId'])+'.jpg'))
+	if request.method == 'POST':
+		file = request.files['resume']
+		if file and allowed_file(file.filename):
+			filename = secure_filename(file.filename)
+			file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(session['userId'])+'.pdf'))
+	return redirect(string)
 
 #shows you all the followers and their correct submissions
 @profile_views.route('/profile/follow/<path>')		# to display the users being followed and all their solved/partially solved problems

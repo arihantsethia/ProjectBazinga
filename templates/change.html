@@ -6,7 +6,7 @@
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 <div class="container marketing">
-  <form class="form-horizontal" action='' method="POST">
+  <form class="form-horizontal" action='/change' method="POST" name="change" onsubmit="return validatechange();">
     <fieldset>
       <div id="legend">
         <legend class=""><h2>Change your Password</h2></legend>
@@ -31,7 +31,7 @@
         <!-- Password-->
         <label class="control-label" for="password">New Password</label>
         <div class="controls">
-          <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+          <input type="password" id="newpassword" name="newpassword" placeholder="" class="input-xlarge">
           <p class="help-block">Password should be at least 4 characters</p>
         </div>
       </div>
@@ -39,14 +39,14 @@
         <!-- Password -->
         <label class="control-label"  for="password_confirm">Confirm Password </label>
         <div class="controls">
-          <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+          <input type="password" id="cofpassword" name="cofpassword" placeholder="" class="input-xlarge">
           <p class="help-block">Please confirm password</p>
         </div>
       </div>   
       <div class="control-group">
         <!-- Button -->
         <div class="controls">
-          <button class="btn btn-success">Reset Password</button>
+          <button class="btn btn-success">Change Password</button>
         </div>
       </div>
     </fieldset>

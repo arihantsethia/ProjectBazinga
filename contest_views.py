@@ -32,6 +32,15 @@ def get_db():
 def index():
     return render_template("practice.html")
 
+@contest_views.route('/code/scoreboard/<int:id>')
+def show_scoreboard(id):
+	db = get_db()
+	cur = db.execute('select username, points, contest_id from ((select sum(points) as points, user_id, contest_id from (select  max(points) as points, lang, code, id, user_id, submissions.question_id, contest_id from (submissions INNER JOIN contest_questions ON submissions.question_id = contest_questions.question_id) GROUP BY submissions.question_id, user_id)  group by user_id ) qwert inner join users on qwert.user_id = users.user_id ) WHERE contest_id=? ORDER BY points DESC', [id])
+	#cur = db.execute('select points, contest_id, scoretable.user_id, users.username from scoretable left join users on users.user_id = scoretable.user_id')
+
+	scores = cur.fetchall()
+	print scores
+	return render_template("scoreboard.html", scores=scores)
 
 @contest_views.route('/code/submissions/<index>')
 def submissions(index=0):

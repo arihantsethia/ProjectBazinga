@@ -6,7 +6,7 @@
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 <div class="container marketing">
-  <form class="form-horizontal" action='' method="POST">
+  <form class="form-horizontal" action='/register' method="POST" onsubmit="return validateform();" name="register" id="user-register">
     <fieldset>
       <div id="legend">
         <legend class=""><h2>Register</h2></legend>
@@ -15,7 +15,7 @@
         <!-- Username -->
         <label class="control-label"  for="username">Username</label>
         <div class="controls">
-          <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+          <input type="text" id="username" name="username" placeholder="" value="" class="input-xlarge">
           <p class="help-block">Username can contain any letters or numbers, without spaces</p>
         </div>
       </div>
@@ -51,22 +51,21 @@
         <!-- Password -->
         <label class="control-label"  for="password_confirm">Confirm Password </label>
         <div class="controls">
-          <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+          <input type="password" id="cofpassword" name="cofpassword" placeholder="" class="input-xlarge">
           <p class="help-block">Please confirm password</p>
         </div>
-      </div>
-   
+      </div>   
       <div class="control-group">
         <!-- Button -->
         <div class="controls">
-          <button class="btn btn-success">Register</button>
+          <button class="btn btn-success" type="submit">Register</button>
         </div>
       </div>
     </fieldset>
   </form>
-<div>
+</div>
   <!------------------------------------------------------------------ -->
-<div>
+<!--<div>
 <form action="adduser" onsubmit="return validateform();" accept-charset="UTF-8" method="post" name="register" id="user-register" enctype="multipart/form-data">
   <div><h3>Create a new account.</h3><div class="form-item" id="edit-name-wrapper">
     <p>
@@ -185,8 +184,8 @@
     <input type="submit" name="op" id="edit-submit" value="Create new account"  class="form-submit" />
   </p>
 </form>
-</div>
-
+</div>-->
+    
 
 {% endblock %}
 

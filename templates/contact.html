@@ -3,7 +3,10 @@
 <div style="margin:100px">
 </div>
 {% if not message %}
-
+<div class="container">
+	<div class="page-header">
+		<h2>Contact Us</h2>
+	</div>
 <form aciton='contact' class="well container" onsubmit="return validateform();"method="post">
     <div class="row">
 		<div class="span4">
@@ -23,5 +26,6 @@
 	</div>
 		<button type="submit" class="btn btn-primary pull-right">Send</button>
 </form>
+</div>
 {% endif %}
 {% endblock %}

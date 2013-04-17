@@ -3,6 +3,9 @@
 <div style="margin:100px">
 </div>
 <div class="container">
+	<div class="page-header">
+		<h2>{{ contest.name }}</h2>
+	</div>
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#pane1" data-toggle="tab">Information</a></li>
@@ -14,8 +17,10 @@
 		      <div>{{ contest.long_description|safe }}</div>
 		    </div>
 	    <div id="pane2" class="tab-pane">
-	    	<table class="table table-striped">
-	    	    <thead>
+	    	<div class=" row ">
+	    	<table class="table table-striped span8">
+	    	    <thead>	    	    	
+	    	    	<tr><td colspan=2><h4>Questions</h4></td></tr>
 	    	        <tr>
 	    	            <th>Question</th>
 	    	            <th>Points</th>
@@ -34,8 +39,26 @@
 	    	    	</tbody>
 	    	    {% endfor %}
 	    	</table>
+	    	
+	    		<div id="score" class="span4">
+
+	    		</div>
+	    	</div>
 	    </div>
 	  </div><!-- /.tab-content -->
 	</div><!-- /.tabbable --> 
 	<hr class="separator"/>
+
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script>
+$(document).ready(function(){
+	$.ajax({
+	  type: "GET",
+	  url: "{{ url_for('contest_views.show_scoreboard', id=contest.contest_id) }}"
+	}).done(function( msg ) {
+	  //alert( "Data Saved: " + msg );
+	  $("#score").html(msg);
+	});
+});
+</script>
 {% endblock %}

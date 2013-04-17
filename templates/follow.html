@@ -4,7 +4,7 @@
 </div>
 <div class = "container" >
 	<div class="page-header">
-		<h2>Following</h2>
+		<h2>Friends</h2>
 	</div>
 {% for i in following %}
 	<h3><a href="/profile/{{i.following}}">{{i.username}}</a> ({{i.name}})</h3>
@@ -15,19 +15,7 @@
   			<tr><td></td><td><a href="{{ url_for('contest_views.show_question', id=j.question_id) }}">{{j.question_name}}</a></td><td>{{j.lang}}</td><td>{{j.points}}</td><td>{{j.submission_time}}</td>
   			{% endif %}
   			{% endfor %}
-		</table>
-
-			
-
-
-
-
-
-
-
-			
-			
-		
+		</table>		
 	<br><br><br>
 {% endfor %}
 </div>

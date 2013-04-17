@@ -50,10 +50,16 @@ def login():			#form validation using this function in signup.html
 def register():                    #renders the signup.html
 	if request.method == 'POST' :
 		db = get_db()
-		#cur = db.execute('insert into users (username, pass, email, name) values (?, ?, ?, ?)',[request.form['username'], request.form['password'], request.form['mail'], request.form['name']])
-		message = "Congratulations "+request.form['username']+", Please check your email to activate the account "
-		db.commit()
-		return render_template('index.html' , message=message )
+		cur = db.execute('select * from users where username=?',[request.form['username']]);
+		cur = cur.fetchall()
+		if (len(cur)>0) :
+			error = "Username not available"
+			return render_template('register.html' , error=error )
+		else :
+			db.execute('insert into users (username, password, email, name) values (?, ?, ?, ?)',[request.form['username'], request.form['password'], request.form['email'], request.form['name']])
+			message = "Congratulations "+request.form['username']+", You are now a member of Bazinga Community "
+			db.commit()
+			return render_template('index.html' ,  message=message )
 	return render_template('register.html')
 
 @login_views.route('/logout')
@@ -77,7 +83,14 @@ def change():
 	message = None
 	error = None
 	if request.method == 'POST':
-		print request.form['username']	
-		print request.form['email']
-		message = " Your password has been changed succesfully"
-	return render_template('forgot.html', error=error , message=message)
+		db=get_db()
+		cur=db.execute('select * from users where username=?',[request.form['username']])
+		cur = cur.fetchone()
+		if (len(cur)>0 and cur['password']==request.form['password']):
+			db.execute('update users set password=? where username=?',[request.form['newpassword'],request.form['username']])
+			message="Your password is changed successfully"
+			db.commit()
+			return render_template('index.html', message=message)
+		else:
+			error = "Please enter the corret username and password"
+	return render_template('change.html', error=error , message=message)
