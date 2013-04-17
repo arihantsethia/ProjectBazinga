@@ -4,6 +4,7 @@ from sqlite3 import dbapi2 as sqlite3
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack,Blueprint
+import os , shutil
 
 #Defining the Blueprint for views.py
 login_views = Blueprint('login_views',__name__)
@@ -56,8 +57,15 @@ def register():                    #renders the signup.html
 			error = "Username not available"
 			return render_template('register.html' , error=error )
 		else :
+			print request.form['username']
+			print request.form['password']
+			print request.form['email']
+			print request.form['name']
 			db.execute('insert into users (username, password, email, name) values (?, ?, ?, ?)',[request.form['username'], request.form['password'], request.form['email'], request.form['name']])
 			message = "Congratulations "+request.form['username']+", You are now a member of Bazinga Community "
+			user = db.execute('select * from users where username=?',[request.form['username']])
+			user = user.fetchone()
+			shutil.copy2('static/files/default.jpg','static/files/'+str(user['user_id'])+'.jpg')
 			db.commit()
 			return render_template('index.html' ,  message=message )
 	return render_template('register.html')

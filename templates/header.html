@@ -106,7 +106,7 @@
           {% endif %}
           {% if message %}
             <div class="alert alert-info">
-              <a class="close" data-dismiss="alert" href="#">×</a> {{message}}
+              <a class="close" data-dismiss="alert" href="#">×</a> {{message|safe}}
             </div>
           {% endif %}
         </div><!-- /.navbar -->

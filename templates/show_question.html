@@ -7,18 +7,8 @@
 	<div class="page-header" >
 		<h3 >{{ question.question_name }} | {{ contest.name }} </h3>
 	</div>
-	{% with msgs = get_flashed_messages() %}
-	{% if msgs %}
-		{% for msg in msgs %}
-			<div class="alert alert-info">
-			  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			  <strong>Heads up!</strong> {{ msg|safe }}
-			</div>
-		{% endfor %}
-	{% endif %}
-	{% endwith %}
-	<p > <b>Description : </b> {{ question.question_string }} </p>
-	<p > <b>Sample Test Case : </b> {{ question.question_name }} </p>
+	
+	<legend > Description : </legend> {{ question.question_string|safe }} </p>
 	<hr> 
 	{% if session.logged_in %}
 	<h4>Submit Code</h4>

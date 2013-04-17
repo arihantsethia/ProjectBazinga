@@ -46,9 +46,12 @@ def allowed_file(filename):
 @profile_views.route('/notifications')		# Handles Notifications  - Notifications button in Header Toolbar
 def notifications():
 	db = get_db()
-	cur = db.execute('select activity_log.user_id, activity, url, time, username, following from activity_log inner join (follow inner join users on following=users.user_id) on activity_log.user_id=following where follower=?',[session['userId']])
-	activities = cur.fetchall()
-	length = len(activities)
+	activities = []
+	length = 0
+	if session['logged_in'] :
+		cur = db.execute('select activity_log.user_id, activity, url, time, username, following from activity_log inner join (follow inner join users on following=users.user_id) on activity_log.user_id=following where follower=?',[session['userId']])
+		activities = cur.fetchall()
+		length = len(activities)
 	return render_template('notifications.html', activities=activities, length=length)
 
 @profile_views.route('/follow_unfollow/<followingid>/<action>')

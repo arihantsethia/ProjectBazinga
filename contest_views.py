@@ -79,15 +79,15 @@ def show_contest(contest_id=0):
 
 @contest_views.route('/code/questions/<int:id>', methods=['GET','POST'])
 def show_question(id=0):
-
+	message = None
 	if request.method =='POST':
-		url = 'http://localhost:1234'	#loadbalancer
+		url = 'http://127.0.0.1:1234'	#loadbalancer
 		values = {'qid' : id, 'code': request.form['code'], 'lang': request.form['lang'], 'user_id': session['userId'] } 
 
 		data = urllib.urlencode(values)
 		rresponse = urllib2.urlopen(url, data)
 		page = rresponse.read()
-		flash('Your solution is being evaluated. You can check the <a href="../submissions/0" >submissions</a> tab for results.')
+		message = 'Your solution is being evaluated. You can check the <a href="../submissions/0" ><b>submissions</b></a> tab for results.'
 
 
 	db = get_db()
@@ -132,4 +132,4 @@ def show_question(id=0):
 	q = cur.fetchone()
 	cur = db.execute('select * from contest where contest_id = ?', [q['contest_id']])
 	c = cur.fetchone()
-	return render_template("show_question.html", question=q, contest=c)
+	return render_template("show_question.html", question=q, contest=c , message = message)

@@ -6,7 +6,7 @@
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 <div class="container marketing">
-  <form class="form-horizontal" action='/register' method="POST" onsubmit="return validateform();" name="register" id="user-register">
+  <form class="form-horizontal" enctype="multipart/form-data" action='/register' method="POST" onsubmit="return validateform();" name="register" id="user-register">
     <fieldset>
       <div id="legend">
         <legend class=""><h2>Register</h2></legend>
@@ -54,7 +54,7 @@
           <input type="password" id="cofpassword" name="cofpassword" placeholder="" class="input-xlarge">
           <p class="help-block">Please confirm password</p>
         </div>
-      </div>   
+      </div>  
       <div class="control-group">
         <!-- Button -->
         <div class="controls">

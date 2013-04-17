@@ -96,8 +96,8 @@
                 <textarea class="input-xlarge" id="question1_outcase1" name="question1_outcase1" type="text" rows="5" placeholder="Expected Output"></textarea><br><br>
                 <div class = "rows">
                  <input class="input" id="question1_points1" name="question1_points1" type="text" placeholder="Points">   
-                 <input class="input-xlarge" id="question1_tl1" name="question1_tl1" type="text" placeholder="Time Limit"> 
-                 <input class="input-xlarge" id="question1_sl1" name="question1_sl1" type="text" placeholder="Space Limit"> 
+                 <input class="input-xlarge" id="question1_tl1" name="question1_tl1" type="text" placeholder="Time Limit in Seconds" value="2"> 
+                 <input class="input-xlarge" id="question1_sl1" name="question1_sl1" type="text" placeholder="Space Limit in Bytes" value-"4194304"> 
                  </div>    
                 <hr id="end1_testcase1">
                 <button onClick="addTestcase()" class="btn btn-info" type="button">+ Add Another Test Case</button>
@@ -128,7 +128,7 @@
         next = next + 1;
         var newIn = '<input class="input-xlarge" id="question_name' + next + '" name="question_name' + next + '" type="text" placeholder="Question Name"><br><br>';
         newIn = newIn + '<textarea class="input-xlarge" id="question_desc' + next + '" name="question_desc' + next + '" type="text"  rows="5" placeholder="Question Description"></textarea><br><br>' ;
-        newIn = newIn + '<div class="control-group" > <input type="hidden"  id="count"'+next+' name="count'+next+'" value="1" /> <label class="control-label">Test Cases </label> <div class="controls" id="testcase"><textarea class="input-xlarge" id="question'+next+'_incase1" name="question'+next+'_incase1" type="text" rows="5" placeholder="Expected Input"></textarea><br><br><textarea class="input-xlarge" id="question'+next+'_outcase1" name="question'+next+'_outcase1" type="text" rows="5" placeholder="Expected Output"></textarea><br><br><div class = "rows"> <input class="input" id="question'+next+'_points1" name="question'+next+'_points1" type="text" placeholder="Points">  <input class="input-xlarge" id="question'+next+'_tl1" name="question'+next+'_tl1" type="text" placeholder="Time Limit">  <input class="input-xlarge" id="question'+next+'_sl1" name="question'+next+'_sl1" type="text" placeholder="Space Limit">  </div> <hr id="end'+next+'_testcase1"> <button onClick="addTestcase()" class="btn btn-info" type="button">+ Add Another Test Case</button> </div> <hr id="end_question'+next+'">';
+        newIn = newIn + '<div class="control-group" > <input type="hidden"  id="count"'+next+' name="count'+next+'" value="1" /> <label class="control-label">Test Cases </label> <div class="controls" id="testcase"><textarea class="input-xlarge" id="question'+next+'_incase1" name="question'+next+'_incase1" type="text" rows="5" placeholder="Expected Input"></textarea><br><br><textarea class="input-xlarge" id="question'+next+'_outcase1" name="question'+next+'_outcase1" type="text" rows="5" placeholder="Expected Output"></textarea><br><br><div class = "rows"> <input class="input" id="question'+next+'_points1" name="question'+next+'_points1" type="text" placeholder="Points">  <input class="input-xlarge" id="question'+next+'_tl1" name="question'+next+'_tl1" type="text" placeholder="Time Limit in seconds" value="2">  <input class="input-xlarge" id="question'+next+'_sl1" name="question'+next+'_sl1" type="text" placeholder="Space Limit in Bytes" value-"4194304">  </div> <hr id="end'+next+'_testcase1"> <button onClick="addTestcase()" class="btn btn-info" type="button">+ Add Another Test Case</button> </div> <hr id="end_question'+next+'">';
         var newInput = $(newIn);
         $(addto).after(newInput);
         $("#count").val(next);

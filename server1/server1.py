@@ -56,7 +56,7 @@ def evaluate(response):
 		cur = db.execute('select question_name from contest_questions where question_id = ?', [id])
 		qname = cur.fetchone()['question_name']
 		activity_string = '%s solved %s' % (username, qname)
-		url = 'http://localhost:5000/questions/%d' % id
+		url = 'http://localhost:5000/questions/%d' % int(id)
 
 		cur = db.execute('SELECT * FROM question_testcase WHERE question_id = ?', [id])
 		testcases = cur.fetchall()
@@ -78,7 +78,7 @@ def evaluate(response):
 		#return render_template('submission_result.html', points=pts)
 		#add to activity log
 		if pts > 0:
-			db.execute('insert into activity_log (user_id, activity, time, url) VALUES (?,?,?)', [userid, activity_string, curtime(), url])
+			db.execute('insert into activity_log (user_id, activity, time, url) VALUES (?,?,?,?)', [userid, activity_string, curtime(), url])
 		db.commit()
 		print 'points: %d' % pts
 		return response

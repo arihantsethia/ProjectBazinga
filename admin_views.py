@@ -111,7 +111,7 @@ def contest_view() :
 def contest_details(contest_id):
     db = get_db()
     if request.method == 'POST' :
-    	db.execute('update contest set name=?, organization=? ,start_time=? , end_time=? , short_description = ?, long_description = ?  where contest_id=?',[request.form['contestname'], request.form['company'],request.form['start-time'],request.form['end-time'],request.form['shortdesc'],request.form['longdesc'],request.form['contestno']])
+    	db.execute('update contest set name=?, company=? ,start_time=? , end_time=? , short_description = ?, long_description = ?  where contest_id=?',[request.form['contestname'], request.form['company'],request.form['start-time'],request.form['end-time'],request.form['shortdesc'],request.form['longdesc'],request.form['contestno']])
     	cur = db.execute('select * from contest where contest_id=?',request.form['contestno'])
     	contest = cur.fetchone()
     	cur = db.execute('select * from contest_questions where contest_id=?',[contest_id])

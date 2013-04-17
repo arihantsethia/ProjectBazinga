@@ -5,7 +5,7 @@
 <div class = "container" >	
 	<div class="page-header row-fluid ">	
 		<div class="pull-left" >	
-			<h2 style="align:bottom"><img class="img-polaroid " src="{{ url_for('static', filename= 'files/%s.jpg' % userId) }}" height="100" width="100"/>
+			<h2 style="align:bottom"><img class="img-polaroid " src="/static/files/{{user.user_id}}.jpg" height="100" width="100"/>
 			&nbsp;{{ user.username }} | {{ user.name }}</h2>
 		</div>
 		<div class="pull-right">

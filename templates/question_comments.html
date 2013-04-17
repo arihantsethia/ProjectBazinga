@@ -12,10 +12,7 @@
               user: {{ text.username }} -- {{ text.comment }}              
           </li>
         {% endfor %}
-     </ul>  
-
-
-
+     </ul> 
      {% if session.logged_in %}
      <form action="{{ url_for('.add_question_comment') }}" method='GET'  >
       <div class="controls">
