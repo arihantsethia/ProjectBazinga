@@ -1,29 +1,25 @@
-
-<div style="margin:100px">
-</div>
-<div class="container">
-  <div class="page-header">
-    <h2>Discussions</h2>
-  </div>
-
-     <ul class=entries > 
-        {% for text in entries %}
-          <li>
-              user: {{ text.username }} -- {{ text.comment }}              
-          </li>
-        {% endfor %}
-     </ul> 
-     {% if session.logged_in %}
-     <form action="{{ url_for('.add_question_comment') }}" method='GET'  >
-      <div class="controls">
-        <legend class=""><h4>Comment on this Question</h4></legend>
-            <input type="text" name="title" placeholder="Type Your comment Here" class="container"><br><br>
+{% if session.logged_in %}
+  <form action="{{ url_for('.add_question_comment') }}" method='GET'  >
+    <fieldset>
+    <div class="controls">
+      <legend class=""><h4>Comment on this Question</h4></legend>
+      <input type="text" name="comment" placeholder="Type Your comment Here" class="container"><br><br>
     </div>
-      <input type='text' name='q_id' value={{ q_no }} style='display:none' />
-      <div class="controls">
+    <input type='text' name='q_id' value={{ q_no }} style='display:none' />
+    <div class="controls">
       <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right">Comment</button>
     </div>
-    </form>
-    {% endif %}
+  </fieldset>
+  </form>
+{% endif %}
+{% set i =0%}
+{% for text in entries %}
+  <div class="page-header">
+    <p>{{text.comment}}</p>
+    <div>
+      <span class="badge badge-success">Commented on {{ text.time }}</span><div class="pull-right"><a href="/profile/{{text.user_id}}"><span class="label">Answered By : <span class="label">{{users[i]}}</span></a></div></div>
+  </div>
+{% set i = i+1 %}
+{% endfor %}
           
 

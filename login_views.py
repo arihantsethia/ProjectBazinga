@@ -102,3 +102,9 @@ def change():
 		else:
 			error = "Please enter the corret username and password"
 	return render_template('change.html', error=error , message=message)
+
+def user(user_id):
+	db = get_db()
+	cur = db.execute('select * from users where user_id=?',[user_id])
+	cur = cur.fetchone()
+	return cur
